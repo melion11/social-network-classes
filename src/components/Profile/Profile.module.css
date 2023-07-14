@@ -1,0 +1,9 @@
+.content {
+
+}
+
+.content__image {
+    width: 1060px;
+    height: 350px;
+    border-radius: 10px;
+}

@@ -1,0 +1,17 @@
+.avatarImage {
+    width: 52px;
+    height: 40px;
+    border-radius: 50px;
+}
+
+.postWrap {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.likeWrap {
+    width: 100px;
+    display: flex;
+    justify-content: end;
+}

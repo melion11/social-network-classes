@@ -1,0 +1,15 @@
+.header {
+    grid-area: h;
+    background-color: #e1c6f1;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    border-radius: 5px;
+
+}
+
+.header__logo {
+    width: 120px;
+    height: 60px;
+
+}
+
+
