@@ -5,15 +5,15 @@ import {DialogItem} from "./Dialog/DialogItem";
 import {DialogsPageType} from "../../redux/state";
 
 export type DialogsPropsType = {
-    state: DialogsPageType
+    dialogsPage: DialogsPageType
 }
 
 
 export const Dialogs = (props: DialogsPropsType) => {
 
 
-    const dialogsElements = props.state.dialogs.map(dialog => <DialogItem id={dialog.id} name={dialog.name}/>)
-    const messagesElements = props.state.messages.map(message => <Message id={message.id} message={message.message}/>)
+    const dialogsElements = props.dialogsPage.dialogs.map(dialog => <DialogItem id={dialog.id} name={dialog.name}/>)
+    const messagesElements = props.dialogsPage.messages.map(message => <Message id={message.id} message={message.message}/>)
 
 
     const newMessageElement = useRef<HTMLTextAreaElement>(null)
