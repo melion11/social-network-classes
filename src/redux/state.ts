@@ -1,4 +1,6 @@
-import {rerenderEntireThree} from "../render";
+let rerenderEntireThree = (state: StateType) => {
+
+}
 
 export type MessageType = {
     id: number
@@ -67,8 +69,8 @@ export const addUserPost = ()  => {
 export const updateNewPostText = (updatePostText: string)  => {
         state.profilePage.newPostText = updatePostText
     rerenderEntireThree(state)
-
- debugger
 }
 
-debugger
+export const subscribe = (observer: (state:StateType)=> void) => {
+    rerenderEntireThree = observer
+}
