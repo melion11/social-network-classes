@@ -6,11 +6,12 @@ import {BrowserRouter} from "react-router-dom";
 import {StateType, store} from "./redux/state";
 
 
+
 const rerenderEntireThree = (state: StateType) => {
 
     ReactDOM.render(
         <BrowserRouter>
-            <App addUserPost={store.addUserPost.bind(store)} store={store} updateNewPostText={store.updateNewPostText.bind(store)} state={state}/>
+            <App store={store} dispatch={store.dispatch.bind(store)} state={state}/>
         </BrowserRouter>
         , document.getElementById('root')
     );

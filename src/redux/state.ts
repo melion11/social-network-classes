@@ -2,36 +2,37 @@ export type MessageType = {
     id: number
     message: string
 }
-
 export type DialogType = {
     id: number
     name: string
 }
-
 export type PostType = {
     id: number
     message: string
     likeCount: number
 }
-
 export type DialogsPageType = {
     dialogs: DialogType[]
     messages: MessageType[]
 }
-
 export type ProfilePageType = {
     posts: PostType[]
     newPostText: string
 }
-
 export type StateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
 }
 
+export type ActionType = {
+    type: string
+    [key:string]: any
+}
+
+
 export const store = {
-    _subscriber(state:StateType) {
-        console.log('there is no subscriber');
+    _callSubscriber(state: StateType) {
+        console.log('no observer')
     },
     _state: {
         profilePage: {
@@ -55,23 +56,47 @@ export const store = {
                 {id: 3, message: 'Okay'}
             ]
         }
-
     },
+
     getState() {
-        return this._state
+        return  this._state
     },
-    subscribe(observer: (state: StateType)=> void)  {
-        this._subscriber = observer
+    subscribe(observer: (state: StateType)=> void){
+       this._callSubscriber = observer
     },
-    addUserPost() {
-        let newPost =  {id: 3,message: this._state.profilePage.newPostText, likeCount: 0}
-        this._state.profilePage.posts.unshift(newPost)
-        this._state.profilePage.newPostText = ''
-        this._subscriber(this._state)
-    },
-    updateNewPostText(updatePostText: string) {
-        this._state.profilePage.newPostText = updatePostText
-        this._subscriber(this._state)
+    dispatch(action: UnionType) {
+        if (action.type === 'ADD-POST') {
+            let newPost =  {id: 3,message: this._state.profilePage.newPostText, likeCount: 0}
+            this._state.profilePage.posts.unshift(newPost)
+            this._state.profilePage.newPostText = ''
+            this._callSubscriber(this._state)
+        }
+        else if ( action.type === 'UPDATE-POST') {
+            this._state.profilePage.newPostText = action.payload.newText
+            this._callSubscriber(this._state)
+        }
     }
+}
 
+
+export type UnionType = AddPostACType | UpdatePostACType
+
+
+export type AddPostACType = ReturnType<typeof addPostAC>
+
+export const addPostAC = () => {
+    return {
+        type: 'ADD-POST'
+    } as const
+}
+
+export type UpdatePostACType = ReturnType<typeof updatePostAC>
+
+export const updatePostAC = (newText: string) => {
+    return {
+        type: 'UPDATE-POST',
+        payload: {
+            newText
+        }
+    } as const
 }
