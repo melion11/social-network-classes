@@ -1,27 +1,28 @@
-import React, {useRef} from 'react';
+import React, {ChangeEvent, useRef} from 'react';
 import s from './Dialogs.module.css'
 import {Message} from "./Message/Message";
 import {DialogItem} from "./Dialog/DialogItem";
-import {DialogsPageType} from "../../redux/state";
+import {DialogsPageType, newMessageAC, StoreType, UnionType, updateMessageAC} from "../../redux/state";
 
 export type DialogsPropsType = {
-    dialogsPage: DialogsPageType
+    store: StoreType
+    dispatch: (action: UnionType) => void
 }
 
 
 export const Dialogs = (props: DialogsPropsType) => {
 
+    const state = props.store.getState().dialogsPage
 
-    const dialogsElements = props.dialogsPage.dialogs.map(dialog => <DialogItem id={dialog.id} name={dialog.name}/>)
-    const messagesElements = props.dialogsPage.messages.map(message => <Message id={message.id} message={message.message}/>)
+    const dialogsElements = state.dialogs.map(dialog => <DialogItem id={dialog.id} name={dialog.name}/>)
+    const messagesElements = state.messages.map(message => <Message id={message.id}
+                                                                                message={message.message}/>)
+    const newMessageText = state.newMessageText
 
+    const newMessageHandler = () => props.dispatch(newMessageAC())
 
-    const newMessageElement = useRef<HTMLTextAreaElement>(null)
-
-    const newMessageHandler = () => {
-        if (newMessageElement.current !== null) {
-            alert(newMessageElement.current.value)
-        }
+    const updateNewMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.dispatch(updateMessageAC(e.currentTarget.value))
     }
 
     return (
@@ -37,11 +38,13 @@ export const Dialogs = (props: DialogsPropsType) => {
                 <ul className={s.messagesList}>
                     {messagesElements}
                 </ul>
-                <textarea ref={newMessageElement}></textarea>
-                <button onClick={newMessageHandler}>+</button>
+                <textarea placeholder={'Type your new message'}
+                          value={newMessageText}
+                          onChange={updateNewMessageHandler}/>
+                <button onClick={newMessageHandler}>Send</button>
             </div>
         </div>
 
-            );
+    );
 };
 
