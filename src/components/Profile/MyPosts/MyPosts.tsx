@@ -1,7 +1,8 @@
 import React, {ChangeEvent, useRef} from 'react';
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
-import {addPostAC, PostType, UnionType, updatePostAC} from "../../../redux/state";
+import {PostType, UnionType} from "../../../redux/state";
+import {addPostAC, updatePostAC} from "../../../redux/profileReducer";
 
 
 

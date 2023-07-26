@@ -8,6 +8,21 @@ export type MessagePropsType = {
 
 export const Message = (props: MessagePropsType) => {
 
-    return <li className={s.messagesItem}>{props.message}</li>
+    return (
+
+        <div key={props.id} className={s.text}>
+            <div className={s.name}>
+                <p>Me</p>
+            </div>
+            <pre className={s.messageText}>
+                 <p>{props.message}</p>
+            </pre>
+        </div>
+
+    );
+
+
 };
 
+
+// <li className={s.messagesItem}>{props.message}</li>

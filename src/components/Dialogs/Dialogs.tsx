@@ -2,7 +2,8 @@ import React, {ChangeEvent, useRef} from 'react';
 import s from './Dialogs.module.css'
 import {Message} from "./Message/Message";
 import {DialogItem} from "./Dialog/DialogItem";
-import {DialogsPageType, newMessageAC, StoreType, UnionType, updateMessageAC} from "../../redux/state";
+import {StoreType, UnionType} from "../../redux/state";
+import {MessageSender} from "./Message/MessageSender/MessageSender";
 
 export type DialogsPropsType = {
     store: StoreType
@@ -17,13 +18,7 @@ export const Dialogs = (props: DialogsPropsType) => {
     const dialogsElements = state.dialogs.map(dialog => <DialogItem id={dialog.id} name={dialog.name}/>)
     const messagesElements = state.messages.map(message => <Message id={message.id}
                                                                                 message={message.message}/>)
-    const newMessageText = state.newMessageText
 
-    const newMessageHandler = () => props.dispatch(newMessageAC())
-
-    const updateNewMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(updateMessageAC(e.currentTarget.value))
-    }
 
     return (
 
@@ -38,10 +33,9 @@ export const Dialogs = (props: DialogsPropsType) => {
                 <ul className={s.messagesList}>
                     {messagesElements}
                 </ul>
-                <textarea placeholder={'Type your new message'}
-                          value={newMessageText}
-                          onChange={updateNewMessageHandler}/>
-                <button onClick={newMessageHandler}>Send</button>
+
+                <MessageSender state={state} dispatch={props.dispatch}/>
+
             </div>
         </div>
 
