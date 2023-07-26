@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+.sendForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 45px;
+    margin-top: 56px;
+
+}
+
+.textarea {
+    font-family: 'Montserrat', sans-serif;
+    padding: 12px 12px;
+    height: 20px;
+    line-height: 20px;
+    flex-grow: 1;
+    width: 500px;
+    background-color: #F5F7FB;
+    box-shadow: 0 5px 20px rgba(29, 33, 38, 0.03);
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    resize: none; /* добавленное свойство */
+
+}
+
+.textarea::placeholder {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: rgba(0, 0, 0, 0.6);
+    opacity: 0.9;
+}
+
+.button {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    color: #FFFFFF;
+    background-color: #c171ef;
+    border-radius: 20px;
+    padding: 10px 39px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+.button:hover {
+    background-color: #a779c0;
+}
+
+.button:active {
+    transform: scale(0.95);
+}
