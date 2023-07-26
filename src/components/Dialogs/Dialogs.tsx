@@ -1,14 +1,14 @@
-import React, {ChangeEvent, useRef} from 'react';
+import React from 'react';
 import s from './Dialogs.module.css'
 import {Message} from "./Message/Message";
 import {DialogItem} from "./Dialog/DialogItem";
-import {DialogType, MessageType} from "../../redux/store";
 import {MessageSenderContainer} from "./Message/MessageSender/MessageSenderContainer";
+import {DialogType, MessageType} from "../../redux/redux-store";
 
 export type DialogsPropsType = {
     dialogs: DialogType[]
     messages: MessageType[]
-    store: any
+
 }
 
 
@@ -32,7 +32,7 @@ export const Dialogs = (props: DialogsPropsType) => {
                     {messagesElements}
                 </ul>
 
-                <MessageSenderContainer store={props.store}/>
+                <MessageSenderContainer/>
 
             </div>
         </div>

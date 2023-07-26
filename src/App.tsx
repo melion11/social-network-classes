@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import {Route} from "react-router-dom";
-import {StateType, UnionType} from "./redux/store";
 import {Music} from "./components/Music/Music";
 import {News} from "./components/News/News";
 import {Navbar} from "./components/NavBar/Navbar";
@@ -12,9 +11,7 @@ import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 
 type AppPropsType = {
-    store: any
-    state: StateType
-    dispatch: (action: UnionType)=> void
+
 }
 
 
@@ -29,9 +26,9 @@ function App(props: AppPropsType) {
             <Navbar/>
             <div className={"appWrapperContent"}>
                 <Route path={'/profile'}
-                       render={()=> <Profile store={props.store}/>}/>
+                       render={()=> <Profile />}/>
                 <Route path={'/dialogs'}
-                       render={()=> <DialogsContainer store={props.store}/>}/>
+                       render={()=> <DialogsContainer/>}/>
                 <Route path={'/news'} render={()=> <News/>}/>
                 <Route path={'/music'} render={()=> <Music/>}/>
                 <Route path={'/settings'} render={()=> <Settings/>}/>

@@ -1,4 +1,5 @@
-import {ProfilePageType, UnionType} from "./store";
+import {ProfilePageType, UnionType} from "./redux-store";
+
 
 const initialState : ProfilePageType =  {
     posts:[

@@ -1,8 +1,7 @@
 import React from 'react';
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
-import {PostType, UnionType} from "../../../redux/store";
-
+import {PostType} from "../../../redux/redux-store";
 
 
 
@@ -14,14 +13,9 @@ export type MyPostsPropsType = {
 
 }
 
-
-
-
 export const MyPosts = (props: MyPostsPropsType) => {
 
-
     const postsElements = props.posts.map(post => <Post id={post.id} message={post.message} likeCount={post.likeCount}/>)
-
     const newPostElement = React.createRef<HTMLTextAreaElement>()
 
     const addPostHandler = () => {

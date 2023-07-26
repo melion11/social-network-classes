@@ -1,30 +1,31 @@
-import React, {ChangeEvent, useRef} from 'react';
-import {MyPosts} from "./MyPosts";
+import React from 'react';
 import {addPostAC, updatePostAC} from "../../../redux/profileReducer";
+import {connect} from "react-redux";
+import {MyPosts} from "./MyPosts";
+import {StateType} from "../../../redux/redux-store";
 
 
 
-export type MyPostsPropsType = {
-    store: any
-
+const mapStateToProps = (state: StateType) => {
+    return {
+        posts: state.profilePage.posts,
+        newPostText: state.profilePage.newPostText
+    }
 }
 
-export const MyPostsContainer = (props: MyPostsPropsType) => {
-
-    const state = props.store.getState()
-
-    const addPostHandler = () => {
-        props.store.dispatch(addPostAC())
+const mapDispatchToProps = (dispatch:any) => {
+    return {
+        addPost: ()=>{
+            dispatch(addPostAC())
+        },
+        onChangePostText: (newPostElement: string) => {
+            dispatch(updatePostAC(newPostElement))
+        }
     }
-
-    const onChangePostText = (newPostElement:string) => {
-        props.store.dispatch(updatePostAC(newPostElement))
-    }
-
-    return <MyPosts posts={state.profilePage.posts}
-                    newPostText={state.profilePage.newPostText}
-                    addPost={addPostHandler}
-                    onChangePostText={onChangePostText}
-    />
 }
+
+
+export const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
+
+
 

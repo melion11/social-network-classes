@@ -1,4 +1,5 @@
-import {DialogsPageType, UnionType} from "./store";
+import {DialogsPageType, UnionType} from "./redux-store";
+
 
 const initialState : DialogsPageType = {
     dialogs:[

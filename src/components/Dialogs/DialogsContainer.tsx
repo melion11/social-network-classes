@@ -1,21 +1,27 @@
-import React, {ChangeEvent, useRef} from 'react';
-import s from './Dialogs.module.css'
-import {Message} from "./Message/Message";
-import {DialogItem} from "./Dialog/DialogItem";
-import {StoreType, UnionType} from "../../redux/store";
-import {MessageSender} from "./Message/MessageSender/MessageSender";
+import React from 'react';
 import {Dialogs} from "./Dialogs";
+import {connect} from "react-redux";
+import {StateType} from "../../redux/redux-store";
 
-export type DialogsPropsType = {
-    store: any
+
+
+
+const mapStateToProps = (state: StateType) => {
+    return {
+        dialogs: state.dialogsPage.dialogs,
+        messages: state.dialogsPage.messages,
+    }
+}
+
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+
+    }
 }
 
 
-export const DialogsContainer = (props: DialogsPropsType) => {
-
-    const state = props.store.getState().dialogsPage
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
 
 
-    return <Dialogs store={props.store} dialogs={state.dialogs} messages={state.messages}/>
-};
+
 
