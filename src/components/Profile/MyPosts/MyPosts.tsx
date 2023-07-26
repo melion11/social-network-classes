@@ -1,15 +1,16 @@
-import React, {ChangeEvent, useRef} from 'react';
+import React from 'react';
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
 import {PostType, UnionType} from "../../../redux/store";
-import {addPostAC, updatePostAC} from "../../../redux/profileReducer";
+
 
 
 
 export type MyPostsPropsType = {
     posts: PostType[]
     newPostText: string
-    dispatch: (action: UnionType)=> void
+    addPost: ()=>void
+    onChangePostText: (newPostElement:string)=>void
 
 }
 
@@ -24,12 +25,11 @@ export const MyPosts = (props: MyPostsPropsType) => {
     const newPostElement = React.createRef<HTMLTextAreaElement>()
 
     const addPostHandler = () => {
-        if (newPostElement.current) props.dispatch(addPostAC())
+        props.addPost()
     }
 
     const onChangePostText = () => {
-
-        if (newPostElement.current) props.dispatch(updatePostAC(newPostElement.current.value))
+        if (newPostElement.current) props.onChangePostText(newPostElement.current.value)
     }
 
     return (

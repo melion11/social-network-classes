@@ -2,21 +2,20 @@ import React, {ChangeEvent, useRef} from 'react';
 import s from './Dialogs.module.css'
 import {Message} from "./Message/Message";
 import {DialogItem} from "./Dialog/DialogItem";
-import {StoreType, UnionType} from "../../redux/store";
-import {MessageSender} from "./Message/MessageSender/MessageSender";
+import {DialogType, MessageType} from "../../redux/store";
+import {MessageSenderContainer} from "./Message/MessageSender/MessageSenderContainer";
 
 export type DialogsPropsType = {
-    store: StoreType
-    dispatch: (action: UnionType) => void
+    dialogs: DialogType[]
+    messages: MessageType[]
+    store: any
 }
 
 
 export const Dialogs = (props: DialogsPropsType) => {
 
-    const state = props.store.getState().dialogsPage
-
-    const dialogsElements = state.dialogs.map(dialog => <DialogItem id={dialog.id} name={dialog.name}/>)
-    const messagesElements = state.messages.map(message => <Message id={message.id} message={message.message}/>)
+    const dialogsElements = props.dialogs.map(dialog => <DialogItem id={dialog.id} name={dialog.name}/>)
+    const messagesElements = props.messages.map(message => <Message id={message.id} message={message.message}/>)
 
 
     return (
@@ -33,7 +32,7 @@ export const Dialogs = (props: DialogsPropsType) => {
                     {messagesElements}
                 </ul>
 
-                <MessageSender state={state} dispatch={props.dispatch}/>
+                <MessageSenderContainer store={props.store}/>
 
             </div>
         </div>
