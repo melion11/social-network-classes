@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {Route} from "react-router-dom";
-import {StateType, UnionType} from "./redux/state";
+import {StateType, UnionType} from "./redux/store";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {Music} from "./components/Music/Music";
 import {News} from "./components/News/News";
