@@ -31,8 +31,6 @@ export type StateType = {
 
 export type UnionType = NewMessageACType | UpdateMessageACType | AddPostACType | UpdatePostACType
 
-
-
 export const reducers = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer
