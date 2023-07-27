@@ -27,13 +27,23 @@ export const MyPosts = (props: MyPostsPropsType) => {
     }
 
     return (
-        <div className={s.content}>
-            <h3>My posts</h3>
-            <div className={s.newPostWrap}>
-                <textarea value={props.newPostText} onChange={onChangePostText} ref={newPostElement}/>
-                <button onClick={addPostHandler}>Add post</button>
+
+    <div className={s.postContainer}>
+        <h3 className={s.postTitle}>My Posts</h3>
+        <div className={s.postForm}>
+            <label className={s.postLabel} htmlFor="postInput">New Post</label>
+            <div className={s.postInputContainer}>
+                <textarea className={s.postInput} id="postInput" value={props.newPostText} onChange={onChangePostText} ref={newPostElement} placeholder="Type your post here"></textarea>
+                <div className={s.postInputControls}>
+                    <span className={s.postInputLength} data-testid="postInputLength">{props.newPostText.length}</span>
+                    <span className={s.postInputMaxLength} data-testid="postInputMaxLength">/ {100}</span>
+                </div>
             </div>
-                {postsElements}
+            <button className={s.postButton} onClick={addPostHandler} disabled={props.newPostText.length === 0 || props.newPostText.length > 100}>Add Post</button>
         </div>
+        <div className={s.postList}>
+            {postsElements}
+        </div>
+    </div>
     )
 }

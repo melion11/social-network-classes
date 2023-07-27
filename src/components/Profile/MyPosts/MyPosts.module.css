@@ -1,5 +1,105 @@
-.newPostWrap {
+.postContainer {
+    max-width: 800px;
+    width: 100%; /* Добавляем этот стиль для того, чтобы контейнер занимал всю доступную ширину */
+    margin: 0 auto;
+    padding: 20px 40px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.postTitle {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.postForm {
     display: flex;
-    align-items: end;
-    gap: 5px;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.postLabel {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.postInputContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.postInput {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+    margin-bottom: 10px;
+    height: 100px;
+}
+
+.postInputControls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: #999;
+    padding-right: 5px;
+}
+
+.postInputLength {
+    font-weight: bold;
+}
+
+.postInputMaxLength {
+    margin-left: 5px;
+}
+
+.postButton {
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4caf50;
+    color: #fff;
+    cursor: pointer;
+
+}
+
+.postButton:focus,
+.postButton:active {
+    outline: none;
+    opacity: 1;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+.postButton:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+
+.postList {
+    display: flex;
+    flex-direction: column;
+}
+
+.post {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.postTitleItem {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.postContent {
+    font-size: 16px;
 }

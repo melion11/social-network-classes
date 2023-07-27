@@ -31,10 +31,6 @@
 
 }
 
-.navLink:hover {
-    color: #5f7aee;
-}
-
 .activeLink {
    color: #c171ef;
 }

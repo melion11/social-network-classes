@@ -1,0 +1,102 @@
+/* user-card.css */
+
+.user-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 300px;
+    width: 250px;
+    margin: 20px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.5s ease-out;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+    background-color: #e1c6f1;
+}
+
+.user-card:hover {
+    transform: translateY(-20px);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.user-card__avatar {
+    height: 50%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.user-card__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.user-card__info-container {
+    height: 50%;
+    width: 100%;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.user-card__name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.user-card__status {
+    font-size: 16px;
+    color: #888;
+}
+
+.user-card__location {
+    display: flex;
+    gap: 10px;
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 5px;
+}
+
+.user-card__country {
+    font-weight: bold;
+}
+
+.user-card__follow-btn {
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: #509a54;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.user-card__unfollow-btn {
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: #f35045;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.user-card__follow-btn,
+.user-card__unfollow-btn {
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.5s ease-out;
+}
+
+.user-card__follow-btn:hover,
+.user-card__unfollow-btn:hover {
+    transform: translate3d(0, -2px, 0);
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+}

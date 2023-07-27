@@ -10,15 +10,16 @@ export type PostPropsType = {
 export const Post = (props: PostPropsType) => {
 
         return (
-            <div className={s.content}>
+            <div className={s.post}>
                 <div className={s.postWrap}>
                     <img className={s.avatarImage} loading="lazy"
-                         src={'https://w7.pngwing.com/pngs/366/190/png-transparent-pittman-animal-hospital-user-computer-icons-avatar-avatar.png'}
+                         src={'https://avatars.mds.yandex.net/i?id=9690567e5e6fb690dc43597b14148235a9c6a99e-9167398-images-thumbs&n=13'}
                          alt={'avatar'}/>
                     <p>{props.message}</p>
                 </div>
                 <div className={s.likeWrap}>
-                    <span>like: {props.likeCount}</span>
+                    <span className={s.likeIcon}></span>
+                    <span className={s.likeCount}>like: {props.likeCount}</span>
                 </div>
             </div>
         );
