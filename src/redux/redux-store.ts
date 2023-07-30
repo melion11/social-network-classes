@@ -4,12 +4,13 @@ import {dialogsReducer, NewMessageACType, UpdateMessageACType} from "./dialogsRe
 import {GetFollowACType, GetUnfollowACType, SetUsersACType, userReducer} from "./userReducer";
 
 export type UserType = {
-    userId: number
-    userAvatar: string
-    fullName: string
-    location: {country: string,city: string}
-    userStatus: string
-    follow: boolean
+    name: string
+    id: number
+    uniqueUrlName: string
+    photos: {small: string, large: string}
+    status: string
+    followed: boolean
+
 }
 export type UsersPageType = {
     users: UserType[]

@@ -6,10 +6,8 @@ import {News} from "./components/UI/News/News";
 import {Navbar} from "./components/UI/NavBar/Navbar";
 import {Profile} from "./components/Profile/Profile";
 import {Settings} from "./components/UI/Settings/Settings";
-
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {Header} from "./components/UI/Header/Header";
-import {Users} from "./components/Users/Users";
 import {UsersContainer} from "./components/Users/UsersContainer";
 
 

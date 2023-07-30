@@ -8,13 +8,13 @@ const initialState: UsersPageType = {
 export const userReducer = (state = initialState, action: UnionType) => {
     switch (action.type) {
         case "GET-FOLLOW": {
-            return {...state, users: state.users.map(u=> u.userId === action.payload.userId ?
-                    {...u, follow: action.payload.followValue} : u
+            return {...state, users: state.users.map(u=> u.id === action.payload.userId ?
+                    {...u, followed: action.payload.followValue} : u
                 )}
         }
         case "GET-UNFOLLOW": {
-            return {...state, users: state.users.map(u=> u.userId === action.payload.userId ?
-                    {...u, follow: action.payload.followValue}  : u
+            return {...state, users: state.users.map(u=> u.id === action.payload.userId ?
+                    {...u, followed: action.payload.followValue}  : u
                 )}
         }
         case "SET-USERS": {
