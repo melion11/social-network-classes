@@ -11,7 +11,7 @@ export type UsersPropsType = {
     setUsers: (users: UserType[]) => void
 }
 
-export const Users = (props: UsersPropsType) => {
+export const UsersFunc = (props: UsersPropsType) => {
 
 
     if (props.users.length === 0) {

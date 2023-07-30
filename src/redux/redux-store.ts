@@ -1,7 +1,14 @@
 import {combineReducers, createStore} from "redux";
 import {AddPostACType, profileReducer, UpdatePostACType} from "./profileReducer";
 import {dialogsReducer, NewMessageACType, UpdateMessageACType} from "./dialogsReducer";
-import {GetFollowACType, GetUnfollowACType, SetUsersACType, userReducer} from "./userReducer";
+import {
+    GetFollowACType,
+    GetUnfollowACType,
+    SetSelectedPageACType,
+    SetTotalUserCount,
+    SetUsersACType,
+    userReducer
+} from "./userReducer";
 
 export type UserType = {
     name: string
@@ -14,6 +21,9 @@ export type UserType = {
 }
 export type UsersPageType = {
     users: UserType[]
+    pageSize: number
+    totalUserCount: number
+    currentPage: number
 }
 export type MessageType = {
     id: number
@@ -44,7 +54,7 @@ export type StateType = {
 }
 
 export type UnionType = NewMessageACType | UpdateMessageACType | AddPostACType |
-    UpdatePostACType | GetFollowACType | GetUnfollowACType | SetUsersACType
+    UpdatePostACType | GetFollowACType | GetUnfollowACType | SetUsersACType | SetSelectedPageACType | SetTotalUserCount
 
 export const reducers = combineReducers({
     profilePage: profileReducer,

@@ -1,7 +1,10 @@
 import {UnionType, UsersPageType, UserType} from "./redux-store";
 
 const initialState: UsersPageType = {
-    users: []
+    users: [],
+    pageSize: 5,
+    totalUserCount: 0,
+    currentPage: 2
 }
 
 
@@ -18,7 +21,13 @@ export const userReducer = (state = initialState, action: UnionType) => {
                 )}
         }
         case "SET-USERS": {
-            return {...state, users: [...state.users, ...action.payload.users]}
+            return {...state, users: action.payload.users}
+        }
+        case "SET-SELECTED-PAGE": {
+            return  {...state, currentPage: action.payload.page}
+        }
+        case "SET-TOTAL-USER-COUNT": {
+            return {...state, totalUserCount: action.payload.totalUserCount}
         }
 
         default:
@@ -56,6 +65,26 @@ export const setUsersAC = (users: UserType[]) => {
         type: 'SET-USERS',
         payload: {
             users
+        }
+    } as const
+}
+
+export type SetSelectedPageACType = ReturnType<typeof setSelectedPageAC>
+export const setSelectedPageAC = (page: number) => {
+    return {
+        type: 'SET-SELECTED-PAGE',
+        payload: {
+            page
+        }
+} as const
+}
+
+export type SetTotalUserCount = ReturnType<typeof setTotalUsersCountAC>
+export const setTotalUsersCountAC = (totalUserCount: number) => {
+    return {
+        type: 'SET-TOTAL-USER-COUNT',
+        payload: {
+            totalUserCount
         }
     } as const
 }
