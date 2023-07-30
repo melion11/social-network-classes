@@ -8,8 +8,17 @@ import {
     setTotalUsersCountAC,
     setUsersAC
 } from "../../redux/userReducer";
-import UserClass from "./UsersClass";
+import axios from "axios";
+import {Users} from "./Users";
 
+
+
+export type MapStateToPropsType = {
+    users: UserType[]
+    pageSize: number
+    totalUserCount: number
+    currentPage: number
+}
 
 const mapStateToProps = (state: StateType) => {
     return {
@@ -18,6 +27,14 @@ const mapStateToProps = (state: StateType) => {
         totalUserCount: state.usersPage.totalUserCount,
         currentPage: state.usersPage.currentPage
     }
+}
+
+export type MapDispatchToPropsType = {
+    getFollowUser: (userId: number, followValue: boolean) => void
+    getUnfollowUser: (userId: number, followValue: boolean) => void
+    setUsers: (users: UserType[]) => void
+    setSelectedPage: (page: number) => void
+    setTotalUsersCount: (totalUserCount: number) => void
 }
 
 const mapDispatchToProps = (dispatch: any) => {
@@ -42,4 +59,43 @@ const mapDispatchToProps = (dispatch: any) => {
 }
 
 
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UserClass)
+class UsersClass extends React.Component<MapStateToPropsType & MapDispatchToPropsType> {
+
+    componentDidMount() {
+        alert('hello')
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+            this.props.setUsers(response.data.items)
+            this.props.setTotalUsersCount(response.data.totalCount)
+
+        })
+    }
+
+    handlePageClick = (page: number) => {
+        this.props.setSelectedPage(page);
+        axios
+            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`)
+            .then((response) => {
+                this.props.setUsers(response.data.items);
+            });
+    };
+
+
+    render() {
+        return <Users
+            users={this.props.users}
+            pageSize={this.props.pageSize}
+            totalUserCount={this.props.totalUserCount}
+            currentPage={this.props.currentPage}
+            getFollowUser={this.props.getFollowUser}
+            getUnfollowUser={this.props.getUnfollowUser}
+            setUsers={this.props.setUsers}
+            setSelectedPage={this.props.setSelectedPage}
+            handlePageClick={this.handlePageClick}
+
+        />
+    }
+
+}
+
+
+export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersClass)
