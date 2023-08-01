@@ -6,7 +6,7 @@ import {setUser} from "../../redux/profileReducer";
 import axios from "axios";
 import {Preloader} from "../UI/Preloader/Preloader";
 import {toggleIsFetching} from "../../redux/userReducer";
-import {withRouter} from "react-router-dom";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 import { useParams } from 'react-router-dom'
 
 
@@ -30,13 +30,15 @@ const mapStateToProps = (state: StateType) => {
 }
 
 
-export class ProfileClass extends React.Component<MapStateToPropsType & MapDispatchToPropsType> {
+export class ProfileClass extends React.Component<MapStateToPropsType & MapDispatchToPropsType & RouteComponentProps<any>> {
 
 
     componentDidMount() {
+        let userId = this.props.match.params.userId || 2
+  
         this.props.toggleIsFetching(true)
         axios
-            .get('https://social-network.samuraijs.com/api/1.0//profile/2').then(response => {
+            .get(`https://social-network.samuraijs.com/api/1.0//profile/${userId}`).then(response => {
             this.props.toggleIsFetching(false)
             this.props.setUser(response.data)
 
@@ -56,6 +58,5 @@ export class ProfileClass extends React.Component<MapStateToPropsType & MapDispa
 
 }
 
-// const WithRouterDataComponent = withRouter(ProfileClass)
 
-export const ProfileContainer = connect(mapStateToProps, {setUser, toggleIsFetching})(ProfileClass)
+export const ProfileContainer = connect(mapStateToProps, {setUser, toggleIsFetching})(withRouter(ProfileClass))
