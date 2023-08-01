@@ -1,4 +1,5 @@
-import {DialogsPageType, UnionType} from "./redux-store";
+import {DialogsPageType} from "./redux-store";
+
 
 
 const initialState : DialogsPageType = {
@@ -16,6 +17,8 @@ const initialState : DialogsPageType = {
     ],
         newMessageText: ''
 }
+
+export type UnionType = NewMessageACType | UpdateMessageACType
 
 
 export const dialogsReducer = (state: DialogsPageType = initialState, action:UnionType) : DialogsPageType => {

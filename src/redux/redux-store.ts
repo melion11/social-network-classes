@@ -1,14 +1,7 @@
 import {combineReducers, createStore} from "redux";
-import {AddPostACType, profileReducer, UpdatePostACType} from "./profileReducer";
-import {dialogsReducer, NewMessageACType, UpdateMessageACType} from "./dialogsReducer";
-import {
-    GetFollowACType,
-    GetUnfollowACType,
-    SetSelectedPageACType,
-    SetTotalUserCountACType,
-    SetUsersACType, ToggleIsFetchingACType,
-    userReducer
-} from "./userReducer";
+import {profileReducer} from "./profileReducer";
+import {dialogsReducer} from "./dialogsReducer";
+import {userReducer} from "./userReducer";
 
 export type UserType = {
     name: string
@@ -18,13 +11,6 @@ export type UserType = {
     status: string
     followed: boolean
 
-}
-export type UsersPageType = {
-    users: UserType[]
-    pageSize: number
-    totalUserCount: number
-    currentPage: number
-    isFetching: boolean
 }
 export type MessageType = {
     id: number
@@ -39,24 +25,56 @@ export type PostType = {
     message: string
     likeCount: number
 }
+export type UserProfileContacts = {
+    facebook: string
+    website: string
+    vk: string
+    twitter: string
+    instagram: string
+    youtube: string
+    github: string
+    mainLink: string
+}
+export type UserProfilePhotosType = {
+    small: string
+    large: string
+}
+export type UserProfileType =  {
+    aboutMe: string
+    contacts: UserProfileContacts
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    userId: number
+    photos: UserProfilePhotosType
+}
+
+export type UsersPageType = {
+    users: UserType[]
+    pageSize: number
+    totalUserCount: number
+    currentPage: number
+    isFetching: boolean
+}
+
 export type DialogsPageType = {
     dialogs: DialogType[]
     messages: MessageType[]
     newMessageText: string
 }
+
 export type ProfilePageType = {
     posts: PostType[]
     newPostText: string
+    userProfile: UserProfileType
+    isFetching: boolean
 }
+
 export type StateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     usersPage: UsersPageType
 }
-
-export type UnionType = NewMessageACType | UpdateMessageACType | AddPostACType |
-    UpdatePostACType | GetFollowACType | GetUnfollowACType | SetUsersACType |
-    SetSelectedPageACType | SetTotalUserCountACType | ToggleIsFetchingACType
 
 export const reducers = combineReducers({
     profilePage: profileReducer,
@@ -65,6 +83,8 @@ export const reducers = combineReducers({
 })
 
 export  const  store = createStore(reducers);
+
+
 
 
 

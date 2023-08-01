@@ -1,4 +1,5 @@
-import {UnionType, UsersPageType, UserType} from "./redux-store";
+import {UsersPageType, UserType} from "./redux-store";
+
 
 const initialState: UsersPageType = {
     users: [],
@@ -7,6 +8,9 @@ const initialState: UsersPageType = {
     currentPage: 2,
     isFetching: true
 }
+
+export type UnionType = GetFollowACType | GetUnfollowACType | SetUsersACType |
+    SetSelectedPageACType | SetTotalUserCountACType | ToggleIsFetchingACType
 
 
 export const userReducer = (state = initialState, action: UnionType) => {

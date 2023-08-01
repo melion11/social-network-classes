@@ -2,6 +2,7 @@ import React from 'react';
 import s from "./Users.module.css";
 import userPhoto from "../../assets/images/user.png";
 import {UserType} from "../../redux/redux-store";
+import {NavLink} from "react-router-dom";
 
 
 
@@ -73,7 +74,7 @@ export const Users = (props: UsersPropsType) => {
                 return (
                     <div className={s["user-card"]}>
                         <div className={s["user-card__avatar"]}>
-                            <img src={u.photos.small !== null ? u.photos.small : userPhoto} alt="Avatar"/>
+                           <NavLink to={`/profile/${u.id}`}><img src={u.photos.small !== null ? u.photos.small : userPhoto} alt="Avatar"/></NavLink>
                         </div>
                         <div className={s["user-card__info-container"]}>
                             <div>
