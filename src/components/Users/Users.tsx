@@ -4,13 +4,14 @@ import userPhoto from "../../assets/images/user.png";
 import {UserType} from "../../redux/redux-store";
 
 
+
 export type  UsersPropsType = {
     users: UserType[]
     pageSize: number
     totalUserCount: number
     currentPage: number
-    getFollowUser: (userId: number, followValue: boolean) => void
-    getUnfollowUser: (userId: number, followValue: boolean) => void
+    getFollow: (userId: number, followValue: boolean) => void
+    getUnfollow: (userId: number, followValue: boolean) => void
     setUsers: (users: UserType[]) => void
     setSelectedPage: (page: number) => void
     handlePageClick: (page: number) => void
@@ -62,11 +63,11 @@ export const Users = (props: UsersPropsType) => {
             {props.users.map(u => {
 
                 const getFollowUserHandler = (userId: number, followValue: boolean) => {
-                    props.getFollowUser(userId, followValue)
+                    props.getFollow(userId, followValue)
                 }
 
                 const getUnfollowUserHandler = (userId: number, followValue: boolean) => {
-                    props.getUnfollowUser(userId, followValue)
+                    props.getUnfollow(userId, followValue)
                 }
 
                 return (
