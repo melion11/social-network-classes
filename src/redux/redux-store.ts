@@ -5,8 +5,8 @@ import {
     GetFollowACType,
     GetUnfollowACType,
     SetSelectedPageACType,
-    SetTotalUserCount,
-    SetUsersACType,
+    SetTotalUserCountACType,
+    SetUsersACType, ToggleIsFetchingACType,
     userReducer
 } from "./userReducer";
 
@@ -24,6 +24,7 @@ export type UsersPageType = {
     pageSize: number
     totalUserCount: number
     currentPage: number
+    isFetching: boolean
 }
 export type MessageType = {
     id: number
@@ -54,7 +55,8 @@ export type StateType = {
 }
 
 export type UnionType = NewMessageACType | UpdateMessageACType | AddPostACType |
-    UpdatePostACType | GetFollowACType | GetUnfollowACType | SetUsersACType | SetSelectedPageACType | SetTotalUserCount
+    UpdatePostACType | GetFollowACType | GetUnfollowACType | SetUsersACType |
+    SetSelectedPageACType | SetTotalUserCountACType | ToggleIsFetchingACType
 
 export const reducers = combineReducers({
     profilePage: profileReducer,

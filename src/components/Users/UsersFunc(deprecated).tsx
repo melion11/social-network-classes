@@ -2,7 +2,7 @@ export {}
 
 // import React from 'react';
 // import {UserType} from "../../redux/redux-store";
-// import s from './Users.module.css';
+// import s from './Preloader.module.css';
 // import userPhoto from './../../assets/images/user.png'
 // import axios from "axios";
 //
