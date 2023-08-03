@@ -20,7 +20,8 @@ export const Header = (props: HeaderPropsType) => {
                     props.userData.isAuth
                         ?
                         <>
-                            <img src={'https://www.svgrepo.com/show/327388/logo-react.svg'} alt={'user.login'} className={s.avatar}/>
+                            <img src={'https://avatars.mds.yandex.net/i?id=5eb28e6484563293901111cc8c8e11d1ac8309e7-7752980-images-thumbs&n=13'}
+                                 alt={'user.login'} className={s.avatar}/>
                             <span className={s.login}>{props.userData.login}</span>
                         </>
                         :

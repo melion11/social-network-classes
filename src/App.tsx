@@ -6,7 +6,6 @@ import {News} from "./components/UI/News/News";
 import {Navbar} from "./components/UI/NavBar/Navbar";
 import {Settings} from "./components/UI/Settings/Settings";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
-import {Header} from "./components/UI/Header/Header";
 import {UsersContainer} from "./components/Users/UsersContainer";
 import {ProfileContainer} from "./components/Profile/ProfileContainer";
 import {HeaderContainer} from "./components/UI/Header/HeaderContainer";
@@ -20,8 +19,10 @@ function App() {
             <HeaderContainer/>
             <Navbar/>
             <div className={"appWrapperContent"}>
+                <Route exact path={'/'} render={()=> <ProfileContainer />}/>
                 <Route path={'/profile/:userId?'}
                        render={()=> <ProfileContainer />}/>
+
                 <Route path={'/dialogs'}
                        render={()=> <DialogsContainer/>}/>
                 <Route path={'/news'} render={()=> <News/>}/>

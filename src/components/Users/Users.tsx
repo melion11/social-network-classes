@@ -3,7 +3,7 @@ import s from "./Users.module.css";
 import userPhoto from "../../assets/images/user.png";
 import {UserType} from "../../redux/redux-store";
 import {NavLink} from "react-router-dom";
-
+import axios from "axios";
 
 
 export type  UsersPropsType = {
@@ -43,16 +43,16 @@ export const Users = (props: UsersPropsType) => {
                     <div className={s["page-carousel__pages"]}>
                         {slicedPages.map((page) =>
                             page === "..." ? (
-                            <span key={page}
-                                  className={`${s["page-carousel__page"]} 
+                                <span key={page}
+                                      className={`${s["page-carousel__page"]} 
                                   ${s["page-carousel__page--disabled"]}`}>
                                  {page}
                             </span>
                             ) : (
-                            <span key={page}
-                                  className={`${s["page-carousel__page"]} 
+                                <span key={page}
+                                      className={`${s["page-carousel__page"]} 
                                   ${props.currentPage === page ? s["page-carousel__page--selected"] : ""}`}
-                                  onClick={() => props.handlePageClick(page)}>
+                                      onClick={() => props.handlePageClick(page)}>
                                   {page}
                             </span>
                             )
@@ -64,17 +64,33 @@ export const Users = (props: UsersPropsType) => {
             {props.users.map(u => {
 
                 const getFollowUserHandler = (userId: number) => {
-                    props.getFollow(userId, true)
+                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`,
+                        {}, {withCredentials: true, headers: {'API-KEY': '657a93da-d266-4c0b-9fc8-fdc066332027'}})
+                        .then(response => {
+                            if (response.data.resultCode === 0) {
+                                props.getFollow(userId, true)
+                            }
+                        }
+                    )
+
                 }
 
                 const getUnfollowUserHandler = (userId: number) => {
-                    props.getUnfollow(userId, false)
+                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`,
+                        {withCredentials: true, headers: {'API-KEY': '657a93da-d266-4c0b-9fc8-fdc066332027'}} )
+                        .then(response => {
+                            if (response.data.resultCode === 0) {
+                                props.getUnfollow(userId, false)
+                            }
+                        }
+                    )
                 }
 
                 return (
                     <div key={u.id} className={s["user-card"]}>
                         <div className={s["user-card__avatar"]}>
-                           <NavLink to={`/profile/${u.id}`}><img src={u.photos.small !== null ? u.photos.small : userPhoto} alt="Avatar"/></NavLink>
+                            <NavLink to={`/profile/${u.id}`}><img
+                                src={u.photos.small !== null ? u.photos.small : userPhoto} alt="Avatar"/></NavLink>
                         </div>
                         <div className={s["user-card__info-container"]}>
                             <div>
@@ -88,11 +104,15 @@ export const Users = (props: UsersPropsType) => {
                             <div>
                                 {u.followed
                                     ?
-                                     <button onClick={() => {getUnfollowUserHandler(u.id)}}
-                                             className={s["user-card__unfollow-btn"]}>Unfollow
-                                     </button>
+                                    <button onClick={() => {
+                                        getUnfollowUserHandler(u.id)
+                                    }}
+                                            className={s["user-card__unfollow-btn"]}>Unfollow
+                                    </button>
                                     :
-                                    <button onClick={() => {getFollowUserHandler(u.id)}}
+                                    <button onClick={() => {
+                                        getFollowUserHandler(u.id)
+                                    }}
                                             className={s["user-card__follow-btn"]}>Follow
                                     </button>
                                 }
