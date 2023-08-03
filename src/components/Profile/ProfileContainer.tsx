@@ -7,8 +7,8 @@ import axios from "axios";
 import {Preloader} from "../UI/Preloader/Preloader";
 import {toggleIsFetching} from "../../redux/userReducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
-import { useParams } from 'react-router-dom'
-
+import {useParams} from 'react-router-dom'
+import {profileAPI} from "../../api/api";
 
 
 export type MapStateToPropsType = {
@@ -38,23 +38,20 @@ export class ProfileClass extends React.Component<MapStateToPropsType & MapDispa
         let userId = this.props.match.params.userId || 2
 
         this.props.toggleIsFetching(true)
-        axios
-            .get(`https://social-network.samuraijs.com/api/1.0//profile/${userId}`).then(response => {
+        profileAPI.getProfile(userId).then(data => {
             this.props.toggleIsFetching(false)
-            this.props.setUser(response.data)
-
-
+            this.props.setUser(data)
         })
     }
 
     render() {
         return (
             <div>
-            {this.props.isFetching ? <Preloader/> :
-                <Profile userProfile={this.props.userProfile}/>
-            }
+                {this.props.isFetching ? <Preloader/> :
+                    <Profile userProfile={this.props.userProfile}/>
+                }
             </div>
-    )
+        )
     }
 
 }
