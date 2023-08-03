@@ -18,8 +18,8 @@ class UsersClass extends React.Component<MapStateToPropsType & MapDispatchToProp
             this.props.toggleIsFetching(false)
             this.props.setUsers(response.data.items)
             this.props.setTotalUsersCount(response.data.totalCount)
-
         })
+
     }
 
     handlePageClick = (page: number) => {

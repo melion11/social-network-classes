@@ -9,6 +9,7 @@ import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {Header} from "./components/UI/Header/Header";
 import {UsersContainer} from "./components/Users/UsersContainer";
 import {ProfileContainer} from "./components/Profile/ProfileContainer";
+import {HeaderContainer} from "./components/UI/Header/HeaderContainer";
 
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
     return (
         <div className="appWrapper">
 
-            <Header/>
+            <HeaderContainer/>
             <Navbar/>
             <div className={"appWrapperContent"}>
                 <Route path={'/profile/:userId?'}

@@ -63,16 +63,16 @@ export const Users = (props: UsersPropsType) => {
 
             {props.users.map(u => {
 
-                const getFollowUserHandler = (userId: number, followValue: boolean) => {
-                    props.getFollow(userId, followValue)
+                const getFollowUserHandler = (userId: number) => {
+                    props.getFollow(userId, true)
                 }
 
-                const getUnfollowUserHandler = (userId: number, followValue: boolean) => {
-                    props.getUnfollow(userId, followValue)
+                const getUnfollowUserHandler = (userId: number) => {
+                    props.getUnfollow(userId, false)
                 }
 
                 return (
-                    <div className={s["user-card"]}>
+                    <div key={u.id} className={s["user-card"]}>
                         <div className={s["user-card__avatar"]}>
                            <NavLink to={`/profile/${u.id}`}><img src={u.photos.small !== null ? u.photos.small : userPhoto} alt="Avatar"/></NavLink>
                         </div>
@@ -86,13 +86,15 @@ export const Users = (props: UsersPropsType) => {
                                 </div>
                             </div>
                             <div>
-                                {u.followed ?
-                                    <button onClick={() => {
-                                        getFollowUserHandler(u.id, !u.followed)
-                                    }} className={s["user-card__follow-btn"]}>Follow</button> :
-                                    <button onClick={() => {
-                                        getUnfollowUserHandler(u.id, !u.followed)
-                                    }} className={s["user-card__unfollow-btn"]}>Unfollow</button>
+                                {u.followed
+                                    ?
+                                     <button onClick={() => {getUnfollowUserHandler(u.id)}}
+                                             className={s["user-card__unfollow-btn"]}>Unfollow
+                                     </button>
+                                    :
+                                    <button onClick={() => {getFollowUserHandler(u.id)}}
+                                            className={s["user-card__follow-btn"]}>Follow
+                                    </button>
                                 }
                             </div>
                         </div>

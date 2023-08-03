@@ -3,7 +3,10 @@
     background-color: #e1c6f1;
     box-shadow: 0 10px 20px rgba(0,0,0,0.3);
     border-radius: 5px;
-
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
 }
 
 .header__logo {
@@ -12,4 +15,32 @@
 
 }
 
+.user {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
 
+.avatar {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.login {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.logout {
+    background-color: transparent;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+}
+
+.logout:hover {
+    color: #bc9ae3;
+}

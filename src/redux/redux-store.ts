@@ -2,6 +2,7 @@ import {combineReducers, createStore} from "redux";
 import {profileReducer} from "./profileReducer";
 import {dialogsReducer} from "./dialogsReducer";
 import {userReducer} from "./userReducer";
+import {authReducer} from "./auth-Reducer";
 
 export type UserType = {
     name: string
@@ -70,16 +71,27 @@ export type ProfilePageType = {
     isFetching: boolean
 }
 
+export type AuthType = {
+    id: number | null
+    email: string | null
+    login: string | null
+    isFetching: boolean
+    isAuth: boolean
+}
+
+
 export type StateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     usersPage: UsersPageType
+    auth: AuthType
 }
 
 export const reducers = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     usersPage: userReducer,
+    auth: authReducer
 })
 
 export  const  store = createStore(reducers);

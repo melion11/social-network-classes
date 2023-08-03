@@ -1,7 +1,9 @@
+
+
 .nav {
     grid-area: n;
     width: 230px;
-    background-color: #78e7e7;
+    background-color: #e6ceff;
     box-shadow: 0 10px 20px rgba(0,0,0,0.3);
     border-radius: 5px;
 }
@@ -28,7 +30,7 @@
 .navLink {
     color: #494545;
     text-decoration: none;
-
+    font-family: 'VK';
 }
 
 .activeLink {

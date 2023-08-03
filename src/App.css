@@ -1,6 +1,7 @@
 body {
-    background-color: #70b9c7;
+    background-color:  #313131;
     list-style: none;
+    font-family: 'VK';
 }
 
 ul {
@@ -34,7 +35,7 @@ a:hover {
 .appWrapperContent {
     padding: 10px;
     grid-area: c;
-    background-color: #9df1a9;
+    background-color: #4d4c4c;
     box-shadow: 0 10px 20px rgba(0,0,0,0.3);
     border-radius: 5px;
 }

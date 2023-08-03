@@ -28,7 +28,7 @@
     list-style: none;
     margin: 0;
     padding: 0;
-    background-color: #c1ee8d;
+    background-color: #e6ceff;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -38,6 +38,7 @@
 
 .dialogList li {
     padding: 10px;
+    font-family: 'VK';
     cursor: pointer;
     border-radius: 5px;
     color: #261e1e;

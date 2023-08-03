@@ -11,3 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face {
+  font-family: "VK";
+  src: local("VKRegular"),
+  url("./fonts/VKSansDisplay-Regular.ttf") format("truetype");
+  font-weight: normal;
+}

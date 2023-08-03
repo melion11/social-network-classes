@@ -25,7 +25,8 @@ export type MapDispatchToPropsType = {
 const mapStateToProps = (state: StateType) => {
     return {
         isFetching: state.profilePage.isFetching,
-        userProfile: state.profilePage.userProfile
+        userProfile: state.profilePage.userProfile,
+
     }
 }
 
@@ -35,7 +36,7 @@ export class ProfileClass extends React.Component<MapStateToPropsType & MapDispa
 
     componentDidMount() {
         let userId = this.props.match.params.userId || 2
-  
+
         this.props.toggleIsFetching(true)
         axios
             .get(`https://social-network.samuraijs.com/api/1.0//profile/${userId}`).then(response => {
