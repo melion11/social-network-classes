@@ -84,6 +84,11 @@
     margin-left: 5px;
 }
 
+button:disabled {
+    opacity: 0.5; /* уменьшение прозрачности кнопки */
+    cursor: not-allowed; /* изменение курсора при наведении на кнопку */
+}
+
 .user-card__follow-btn,
 .user-card__unfollow-btn {
     padding: 10px;

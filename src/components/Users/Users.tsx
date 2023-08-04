@@ -16,6 +16,8 @@ export type  UsersPropsType = {
     setUsers: (users: UserType[]) => void
     setSelectedPage: (page: number) => void
     handlePageClick: (page: number) => void
+    toggleIsFollow: (userId: number, isFollow: boolean) => void
+    followingInProgress: number[]
 }
 
 export const Users = (props: UsersPropsType) => {
@@ -63,12 +65,20 @@ export const Users = (props: UsersPropsType) => {
 
             {props.users.map(u => {
                 const getFollowUserHandler = (userId: number) => {
+                    props.toggleIsFollow(userId,true)
                     followAPI.getFollow(userId).then(data => {
                         if (data.resultCode === 0) props.getFollow(userId, true)
-                    })}
+                        props.toggleIsFollow(userId,false)
+                    })
+                }
                 const getUnfollowUserHandler = (userId: number) => {
-                    followAPI.getUnfollow(userId).then(data => {if (data.resultCode === 0) props.getUnfollow(userId, false)
-                    })}
+                    props.toggleIsFollow(userId,true)
+                    followAPI.getUnfollow(userId).then(data => {
+                        props.toggleIsFollow(userId,false)
+                        if (data.resultCode === 0) props.getUnfollow(userId, false)
+                        props.toggleIsFollow(userId,false)
+                    })
+                }
 
                 return (
                     <div key={u.id} className={s["user-card"]}>
@@ -88,16 +98,16 @@ export const Users = (props: UsersPropsType) => {
                             <div>
                                 {u.followed
                                     ?
-                                    <button onClick={() => {
+                                    <button disabled={props.followingInProgress.some(id => u.id === id)} onClick={() => {
                                         getUnfollowUserHandler(u.id)
                                     }}
-                                            className={s["user-card__unfollow-btn"]}>Unfollow
+                                            className={s["user-card__unfollow-btn"] + (props.followingInProgress ? ' disabled' : '')}>Unfollow
                                     </button>
                                     :
-                                    <button onClick={() => {
+                                    <button disabled={props.followingInProgress.some(id => u.id === id)} onClick={() => {
                                         getFollowUserHandler(u.id)
                                     }}
-                                            className={s["user-card__follow-btn"]}>Follow
+                                            className={s["user-card__follow-btn"] + (props.followingInProgress ? ' disabled' : '')}>Follow
                                     </button>
                                 }
                             </div>

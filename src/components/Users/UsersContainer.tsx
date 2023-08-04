@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {StateType, UserType} from "../../redux/redux-store";
 import {
     getFollow, getUnfollow, setSelectedPage,
-    setTotalUsersCount, setUsers, toggleIsFetching
+    setTotalUsersCount, setUsers, toggleIsFetching, toggleIsFollow
 } from "../../redux/userReducer";
 import {Users} from "./Users";
 import {Preloader} from "../UI/Preloader/Preloader";
@@ -46,6 +46,8 @@ class UsersClass extends React.Component<MapStateToPropsType & MapDispatchToProp
                         setUsers={this.props.setUsers}
                         setSelectedPage={this.props.setSelectedPage}
                         handlePageClick={this.handlePageClick}
+                        toggleIsFollow={this.props.toggleIsFollow}
+                        followingInProgress={this.props.followingInProgress}
                     />
                 }
             </div>
@@ -61,6 +63,7 @@ export type MapStateToPropsType = {
     totalUserCount: number
     currentPage: number
     isFetching: boolean
+    followingInProgress: number[]
 }
 
 const mapStateToProps = (state: StateType) => {
@@ -69,7 +72,8 @@ const mapStateToProps = (state: StateType) => {
         pageSize: state.usersPage.pageSize,
         totalUserCount: state.usersPage.totalUserCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress
 
     }
 }
@@ -81,6 +85,7 @@ export type MapDispatchToPropsType = {
     setSelectedPage: (page: number) => void
     setTotalUsersCount: (totalUserCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void
+    toggleIsFollow: (userId: number, isFollow: boolean) => void
 }
 
 // const mapDispatchToProps = (dispatch: Dispatch) => {
@@ -115,7 +120,8 @@ export const UsersContainer = connect(mapStateToProps,
         setUsers,
         setSelectedPage,
         setTotalUsersCount,
-        toggleIsFetching
+        toggleIsFetching,
+        toggleIsFollow
     }
 )
 (UsersClass)

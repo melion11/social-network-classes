@@ -56,6 +56,7 @@ export type UsersPageType = {
     totalUserCount: number
     currentPage: number
     isFetching: boolean
+    followingInProgress: number[]
 }
 
 export type DialogsPageType = {

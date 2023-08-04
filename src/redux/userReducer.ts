@@ -6,36 +6,49 @@ const initialState: UsersPageType = {
     pageSize: 5,
     totalUserCount: 0,
     currentPage: 2,
-    isFetching: true
+    isFetching: true,
+    followingInProgress: []
 }
 
 export type UnionType = GetFollowACType | GetUnfollowACType | SetUsersACType |
-    SetSelectedPageACType | SetTotalUserCountACType | ToggleIsFetchingACType
+    SetSelectedPageACType | SetTotalUserCountACType | ToggleIsFetchingACType | ToggleIsFollowType
 
 
 export const userReducer = (state = initialState, action: UnionType) => {
     switch (action.type) {
         case "GET-FOLLOW": {
-            return {...state, users: state.users.map(u=> u.id === action.payload.userId ?
+            return {
+                ...state, users: state.users.map(u => u.id === action.payload.userId ?
                     {...u, followed: action.payload.followValue} : u
-                )}
+                )
+            }
         }
         case "GET-UNFOLLOW": {
-            return {...state, users: state.users.map(u=> u.id === action.payload.userId ?
-                    {...u, followed: action.payload.followValue}  : u
-                )}
+            return {
+                ...state, users: state.users.map(u => u.id === action.payload.userId ?
+                    {...u, followed: action.payload.followValue} : u
+                )
+            }
         }
         case "SET-USERS": {
             return {...state, users: action.payload.users}
         }
         case "SET-SELECTED-PAGE": {
-            return  {...state, currentPage: action.payload.page}
+            return {...state, currentPage: action.payload.page}
         }
         case "SET-TOTAL-USER-COUNT": {
             return {...state, totalUserCount: action.payload.totalUserCount}
         }
         case "TOGGLE-IS-FETCHING": {
             return {...state, isFetching: action.payload.isFetching}
+        }
+        case "TOGGLE-IS-FOLLOW": {
+            return {
+                ...state,
+                followingInProgress: action.payload.isFollow ?
+                    [...state.followingInProgress, action.payload.userId] :
+                    state.followingInProgress.filter(el => el !== action.payload.userId)
+            }
         }
 
         default:
@@ -44,9 +57,8 @@ export const userReducer = (state = initialState, action: UnionType) => {
 }
 
 
-
 export type GetFollowACType = ReturnType<typeof getFollow>
-export const getFollow = (userId: number,followValue: boolean) => {
+export const getFollow = (userId: number, followValue: boolean) => {
     return {
         type: 'GET-FOLLOW',
         payload: {
@@ -84,7 +96,7 @@ export const setSelectedPage = (page: number) => {
         payload: {
             page
         }
-} as const
+    } as const
 }
 
 export type SetTotalUserCountACType = ReturnType<typeof setTotalUsersCount>
@@ -103,6 +115,18 @@ export const toggleIsFetching = (isFetching: boolean) => {
         type: 'TOGGLE-IS-FETCHING',
         payload: {
             isFetching
+        }
+    } as const
+}
+
+
+export type ToggleIsFollowType = ReturnType<typeof toggleIsFollow>
+export const toggleIsFollow = (userId: number, isFollow: boolean) => {
+    return {
+        type: 'TOGGLE-IS-FOLLOW',
+        payload: {
+            userId,
+            isFollow
         }
     } as const
 }
