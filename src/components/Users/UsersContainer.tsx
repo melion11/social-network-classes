@@ -2,33 +2,24 @@ import React from 'react';
 import {connect} from "react-redux";
 import {StateType, UserType} from "../../redux/redux-store";
 import {
-    getFollow, getUnfollow, setSelectedPage,
-    setTotalUsersCount, setUsers, toggleIsFetching, toggleIsFollow
+    follow,
+    getUsers,
+    setSelectedPage,
+    unfollow
 } from "../../redux/userReducer";
 import {Users} from "./Users";
 import {Preloader} from "../UI/Preloader/Preloader";
-import {usersAPI} from "../../api/api";
 
 
-class UsersClass extends React.Component<MapStateToPropsType & MapDispatchToPropsType> {
+class UsersClass extends React.Component<MapStateToPropsType & MapDispatchToPropsType, any> {
 
     componentDidMount() {
-        this.props.toggleIsFetching(true)
-        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-            this.props.toggleIsFetching(false)
-            this.props.setUsers(data.items)
-            this.props.setTotalUsersCount(data.totalCount)
-        })
-
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
     handlePageClick = (page: number) => {
         this.props.setSelectedPage(page);
-        this.props.toggleIsFetching(true)
-        usersAPI.getUsers(page, this.props.pageSize).then((data) => {
-            this.props.toggleIsFetching(false)
-            this.props.setUsers(data.items);
-        });
+        this.props.getUsers(page, this.props.pageSize)
     };
 
 
@@ -41,12 +32,10 @@ class UsersClass extends React.Component<MapStateToPropsType & MapDispatchToProp
                         pageSize={this.props.pageSize}
                         totalUserCount={this.props.totalUserCount}
                         currentPage={this.props.currentPage}
-                        getFollow={this.props.getFollow}
-                        getUnfollow={this.props.getUnfollow}
-                        setUsers={this.props.setUsers}
+                        follow={this.props.follow}
+                        unfollow={this.props.unfollow}
                         setSelectedPage={this.props.setSelectedPage}
                         handlePageClick={this.handlePageClick}
-                        toggleIsFollow={this.props.toggleIsFollow}
                         followingInProgress={this.props.followingInProgress}
                     />
                 }
@@ -79,13 +68,10 @@ const mapStateToProps = (state: StateType) => {
 }
 
 export type MapDispatchToPropsType = {
-    getFollow: (userId: number, followValue: boolean) => void
-    getUnfollow: (userId: number, followValue: boolean) => void
-    setUsers: (users: UserType[]) => void
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
     setSelectedPage: (page: number) => void
-    setTotalUsersCount: (totalUserCount: number) => void
-    toggleIsFetching: (isFetching: boolean) => void
-    toggleIsFollow: (userId: number, isFollow: boolean) => void
+    getUsers: (currentPage: number, pageSize: number) => void
 }
 
 // const mapDispatchToProps = (dispatch: Dispatch) => {
@@ -113,15 +99,11 @@ export type MapDispatchToPropsType = {
 // }
 
 
-export const UsersContainer = connect(mapStateToProps,
-    {
-        getFollow,
-        getUnfollow,
-        setUsers,
+export const UsersContainer = connect(mapStateToProps, {
+        follow,
+        unfollow,
         setSelectedPage,
-        setTotalUsersCount,
-        toggleIsFetching,
-        toggleIsFollow
+        getUsers
     }
 )
 (UsersClass)

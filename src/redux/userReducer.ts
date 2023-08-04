@@ -1,4 +1,5 @@
 import {UsersPageType, UserType} from "./redux-store";
+import {usersAPI} from "../api/api";
 
 
 const initialState: UsersPageType = {
@@ -50,12 +51,10 @@ export const userReducer = (state = initialState, action: UnionType) => {
                     state.followingInProgress.filter(el => el !== action.payload.userId)
             }
         }
-
         default:
             return state
     }
 }
-
 
 export type GetFollowACType = ReturnType<typeof getFollow>
 export const getFollow = (userId: number, followValue: boolean) => {
@@ -119,7 +118,6 @@ export const toggleIsFetching = (isFetching: boolean) => {
     } as const
 }
 
-
 export type ToggleIsFollowType = ReturnType<typeof toggleIsFollow>
 export const toggleIsFollow = (userId: number, isFollow: boolean) => {
     return {
@@ -129,4 +127,32 @@ export const toggleIsFollow = (userId: number, isFollow: boolean) => {
             isFollow
         }
     } as const
+}
+
+
+export const getUsers = (currentPage: number, pageSize: number) => (dispatch: any) => {
+    dispatch(toggleIsFetching(true))
+    usersAPI.getUsers(currentPage, pageSize).then(data => {
+            dispatch(toggleIsFetching(false))
+            dispatch(setUsers(data.items))
+            dispatch(setTotalUsersCount(data.totalCount))
+        }
+    )
+}
+
+export const follow = (userId: number) => (dispatch: any) => {
+    dispatch(toggleIsFollow(userId,true))
+    usersAPI.getFollow(userId).then(data => {
+        if (data.resultCode === 0) dispatch(getFollow(userId, true))
+        dispatch(toggleIsFollow(userId,false))
+    })
+}
+
+export const unfollow = (userId: number) => (dispatch: any) => {
+    dispatch(toggleIsFollow(userId,true))
+    usersAPI.getUnfollow(userId).then(data => {
+        dispatch(toggleIsFollow(userId,false))
+        if (data.resultCode === 0) dispatch(getUnfollow(userId, false))
+        dispatch(toggleIsFollow(userId,false))
+    })
 }

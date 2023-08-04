@@ -3,7 +3,6 @@ import s from "./Users.module.css";
 import userPhoto from "../../assets/images/user.png";
 import {UserType} from "../../redux/redux-store";
 import {NavLink} from "react-router-dom";
-import {followAPI} from "../../api/api";
 
 
 export type  UsersPropsType = {
@@ -11,12 +10,10 @@ export type  UsersPropsType = {
     pageSize: number
     totalUserCount: number
     currentPage: number
-    getFollow: (userId: number, followValue: boolean) => void
-    getUnfollow: (userId: number, followValue: boolean) => void
-    setUsers: (users: UserType[]) => void
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
     setSelectedPage: (page: number) => void
     handlePageClick: (page: number) => void
-    toggleIsFollow: (userId: number, isFollow: boolean) => void
     followingInProgress: number[]
 }
 
@@ -65,19 +62,10 @@ export const Users = (props: UsersPropsType) => {
 
             {props.users.map(u => {
                 const getFollowUserHandler = (userId: number) => {
-                    props.toggleIsFollow(userId,true)
-                    followAPI.getFollow(userId).then(data => {
-                        if (data.resultCode === 0) props.getFollow(userId, true)
-                        props.toggleIsFollow(userId,false)
-                    })
+                    props.follow(userId)
                 }
                 const getUnfollowUserHandler = (userId: number) => {
-                    props.toggleIsFollow(userId,true)
-                    followAPI.getUnfollow(userId).then(data => {
-                        props.toggleIsFollow(userId,false)
-                        if (data.resultCode === 0) props.getUnfollow(userId, false)
-                        props.toggleIsFollow(userId,false)
-                    })
+                    props.unfollow(userId)
                 }
 
                 return (

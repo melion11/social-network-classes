@@ -1,8 +1,9 @@
-import {combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
 import {profileReducer} from "./profileReducer";
 import {dialogsReducer} from "./dialogsReducer";
 import {userReducer} from "./userReducer";
 import {authReducer} from "./auth-Reducer";
+import thunk from "redux-thunk";
 
 export type UserType = {
     name: string
@@ -95,7 +96,7 @@ export const reducers = combineReducers({
     auth: authReducer
 })
 
-export  const  store = createStore(reducers);
+export  const  store = createStore(reducers, applyMiddleware(thunk));
 
 
 
