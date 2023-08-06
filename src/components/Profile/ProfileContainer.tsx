@@ -2,13 +2,11 @@ import React from 'react';
 import {connect} from "react-redux";
 import {Profile} from "./Profile";
 import {StateType, UserProfileType} from "../../redux/redux-store";
-import {setUser} from "../../redux/profileReducer";
-import axios from "axios";
+import {getProfile} from "../../redux/profileReducer";
 import {Preloader} from "../UI/Preloader/Preloader";
 import {toggleIsFetching} from "../../redux/userReducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
-import {useParams} from 'react-router-dom'
-import {profileAPI} from "../../api/api";
+
 
 
 export type MapStateToPropsType = {
@@ -18,7 +16,7 @@ export type MapStateToPropsType = {
 
 export type MapDispatchToPropsType = {
     toggleIsFetching: (isFetching: boolean) => void
-    setUser: (user: UserProfileType) => void
+    getProfile: (userId: number) => void
 }
 
 
@@ -36,12 +34,8 @@ export class ProfileClass extends React.Component<MapStateToPropsType & MapDispa
 
     componentDidMount() {
         let userId = this.props.match.params.userId || 2
+        this.props.getProfile(userId)
 
-        this.props.toggleIsFetching(true)
-        profileAPI.getProfile(userId).then(data => {
-            this.props.toggleIsFetching(false)
-            this.props.setUser(data)
-        })
     }
 
     render() {
@@ -57,4 +51,4 @@ export class ProfileClass extends React.Component<MapStateToPropsType & MapDispa
 }
 
 
-export const ProfileContainer = connect(mapStateToProps, {setUser, toggleIsFetching})(withRouter(ProfileClass))
+export const ProfileContainer = connect(mapStateToProps, {getProfile, toggleIsFetching})(withRouter(ProfileClass))

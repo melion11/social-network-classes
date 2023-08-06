@@ -1,5 +1,6 @@
 import {ProfilePageType, UserProfileType} from "./redux-store";
-import {ToggleIsFetchingACType} from "./userReducer";
+import {toggleIsFetching, ToggleIsFetchingACType} from "./userReducer";
+import {usersAPI} from "../api/api";
 
 
 
@@ -88,4 +89,14 @@ export const setUser = (user: UserProfileType) => {
                 user
         }
     } as const
+}
+
+
+export const getProfile = (userId: number) => (dispatch: any) => {
+        dispatch(toggleIsFetching(true))
+            usersAPI.getProfile(userId)
+            .then(data => {
+            dispatch(toggleIsFetching(false))
+            dispatch(setUser(data))
+    })
 }

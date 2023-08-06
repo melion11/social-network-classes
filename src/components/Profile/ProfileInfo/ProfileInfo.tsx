@@ -21,7 +21,7 @@ export const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
             <div className={s.profile__overlay}></div>
             <div className={s.profile__content}>
                 <div className={s.profile__header}>
-                    <img className={s.profile__avatar} src={userProfile.photos.small} alt={"avatar"} />
+                    <img className={s.profile__avatar} src={userProfile.photos.small ? userProfile.photos.small : 'https://placehold.co/50x50?text=No+Avatar'} alt={"avatar"} />
                     <h2 className={s.profile__name}>{userProfile.fullName}</h2>
                     <p className={s.profile__status}>{userProfile.aboutMe}</p>
                 </div>

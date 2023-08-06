@@ -2,9 +2,8 @@ import React from 'react';
 import {connect} from "react-redux";
 import {AuthType, StateType} from "../../../redux/redux-store";
 import {Header} from "./Header";
-import {toggleIsFetching} from "../../../redux/userReducer";
-import {setUserData} from "../../../redux/auth-Reducer";
-import {authAPI} from "../../../api/api";
+import {getAuth} from "../../../redux/auth-Reducer";
+
 
 
 export type MapStateToPropsType = {
@@ -12,8 +11,7 @@ export type MapStateToPropsType = {
 }
 
 export type MapDispatchToPropsType = {
-    setUserData: (userData: AuthType)=> void
-    toggleIsFetching: (isFetching: boolean) => void
+    getAuth: ()=> void
 }
 
 
@@ -21,13 +19,7 @@ export class HeaderClass extends React.Component<MapStateToPropsType & MapDispat
 
 
     componentDidMount() {
-        this.props.toggleIsFetching(true)
-        authAPI.getAuth().then(data => {
-            if (data.resultCode === 0) {
-            this.props.toggleIsFetching(false)
-            this.props.setUserData(data.data)
-        }
-        })
+        this.props.getAuth()
     }
 
 
@@ -49,5 +41,5 @@ const mapStateToProps = (state: StateType) => {
 
 
 
-export const HeaderContainer = connect(mapStateToProps, {setUserData,toggleIsFetching})(HeaderClass)
+export const HeaderContainer = connect(mapStateToProps, {getAuth})(HeaderClass)
 

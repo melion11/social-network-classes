@@ -1,5 +1,6 @@
 import {AuthType} from "./redux-store";
-import {ToggleIsFetchingACType} from "./userReducer";
+import {toggleIsFetching, ToggleIsFetchingACType} from "./userReducer";
+import {authAPI} from "../api/api";
 
 
 const initialState = {
@@ -38,3 +39,12 @@ export const setUserData = (userData: AuthType) => {
     } as const
 }
 
+export const getAuth = () => (dispatch: any) => {
+   dispatch(toggleIsFetching(true))
+    authAPI.getAuth().then(data => {
+        if (data.resultCode === 0) {
+            dispatch(toggleIsFetching(false))
+            dispatch(setUserData(data.data))
+        }
+    })
+}
