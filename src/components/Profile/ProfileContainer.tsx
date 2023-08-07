@@ -5,14 +5,15 @@ import {StateType, UserProfileType} from "../../redux/redux-store";
 import {getProfile} from "../../redux/profileReducer";
 import {Preloader} from "../UI/Preloader/Preloader";
 import {toggleIsFetching} from "../../redux/userReducer";
-import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
+import {RouteComponentProps, withRouter} from "react-router-dom";
+import {withRedirect} from "../Login/withRedirect";
 
 
 
 export type MapStateToPropsType = {
     userProfile: UserProfileType
     isFetching: boolean
-    isAuth: boolean
+
 }
 
 export type MapDispatchToPropsType = {
@@ -25,7 +26,6 @@ const mapStateToProps = (state: StateType) => {
     return {
         isFetching: state.profilePage.isFetching,
         userProfile: state.profilePage.userProfile,
-        isAuth: state.auth.isAuth
 
     }
 }
@@ -42,8 +42,6 @@ export class ProfileClass extends React.Component<MapStateToPropsType & MapDispa
 
     render() {
 
-        if (!this.props.isAuth) return <Redirect to={'/login'}/>
-
         return (
             <div>
                 {this.props.isFetching ? <Preloader/> :
@@ -56,4 +54,6 @@ export class ProfileClass extends React.Component<MapStateToPropsType & MapDispa
 }
 
 
-export const ProfileContainer = connect(mapStateToProps, {getProfile, toggleIsFetching})(withRouter(ProfileClass))
+export const ProfileConnect = connect(mapStateToProps, {getProfile, toggleIsFetching})(withRouter(ProfileClass))
+
+export const ProfileContainer = withRedirect(ProfileConnect)

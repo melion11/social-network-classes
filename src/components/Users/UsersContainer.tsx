@@ -9,7 +9,8 @@ import {
 } from "../../redux/userReducer";
 import {Users} from "./Users";
 import {Preloader} from "../UI/Preloader/Preloader";
-import {Redirect} from "react-router-dom";
+import {withRedirect} from "../Login/withRedirect";
+
 
 
 class UsersClass extends React.Component<MapStateToPropsType & MapDispatchToPropsType, any> {
@@ -25,8 +26,6 @@ class UsersClass extends React.Component<MapStateToPropsType & MapDispatchToProp
 
 
     render() {
-
-        if (!this.props.isAuth) return <Redirect to={'/login'}/>
 
         return (
             <div>
@@ -57,7 +56,6 @@ export type MapStateToPropsType = {
     currentPage: number
     isFetching: boolean
     followingInProgress: number[]
-    isAuth: boolean
 }
 
 const mapStateToProps = (state: StateType) => {
@@ -68,7 +66,6 @@ const mapStateToProps = (state: StateType) => {
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
         followingInProgress: state.usersPage.followingInProgress,
-        isAuth: state.auth.isAuth
 
     }
 }
@@ -105,11 +102,7 @@ export type MapDispatchToPropsType = {
 // }
 
 
-export const UsersContainer = connect(mapStateToProps, {
-        follow,
-        unfollow,
-        setSelectedPage,
-        getUsers
-    }
-)
+const UsersConnect = connect(mapStateToProps, {follow,unfollow,setSelectedPage,getUsers})
 (UsersClass)
+
+export const UsersContainer = withRedirect(UsersConnect)
