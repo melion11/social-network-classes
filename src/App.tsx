@@ -1,14 +1,15 @@
 import React from 'react';
 import './App.css';
 import {Route} from "react-router-dom";
-import {Music} from "./components/UI/Music/Music";
-import {News} from "./components/UI/News/News";
 import {Navbar} from "./components/UI/NavBar/Navbar";
-import {Settings} from "./components/UI/Settings/Settings";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./components/Users/UsersContainer";
 import {ProfileContainer} from "./components/Profile/ProfileContainer";
 import {HeaderContainer} from "./components/UI/Header/HeaderContainer";
+import {LoginContainer} from "./components/Login/LoginContainer";
+import {NewsContainer} from "./components/UI/News/NewsContainer";
+import {SettingsContainer} from "./components/UI/Settings/SettingsContainer";
+import {MusicContainer} from "./components/UI/Music/MusicContainer";
 
 
 function App() {
@@ -22,13 +23,14 @@ function App() {
                 <Route exact path={'/'} render={()=> <ProfileContainer />}/>
                 <Route path={'/profile/:userId?'}
                        render={()=> <ProfileContainer />}/>
-
                 <Route path={'/dialogs'}
                        render={()=> <DialogsContainer/>}/>
-                <Route path={'/news'} render={()=> <News/>}/>
-                <Route path={'/music'} render={()=> <Music/>}/>
+                <Route path={'/news'} render={()=> <NewsContainer/>}/>
+                <Route path={'/music'} render={()=> <MusicContainer/>}/>
                 <Route path={'/users'} render={()=> <UsersContainer/>}/>
-                <Route path={'/settings'} render={()=> <Settings/>}/>
+                <Route path={'/settings'} render={()=> <SettingsContainer/>}/>
+                <Route path={'/login'}
+                       render={()=> <LoginContainer/>}/>
             </div>
         </div>
     )

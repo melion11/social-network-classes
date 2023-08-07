@@ -1,8 +1,15 @@
 import React from 'react';
-import s from '/Dialogs.module.css'
+import {Redirect} from "react-router-dom";
 
 
-export const Music = () => {
+export type SettingsPropsType = {
+    isAuth: boolean
+}
+
+export const Music = (props: SettingsPropsType) => {
+
+    if (!props.isAuth) return <Redirect to={'/login'}/>
+
     return (
         <div>
            Music

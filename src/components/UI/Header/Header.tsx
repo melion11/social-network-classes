@@ -28,9 +28,11 @@ export const Header = (props: HeaderPropsType) => {
                         <NavLink className={s.login} to={'/login'}>Login</NavLink>
                 }
             </div>
-            <button className={s.logout} onClick={() => {
-            }}>Выход
-            </button>
+            <NavLink to={'/login'}
+                     className={s.logout}
+                     onClick={() => {
+                     }}>login
+            </NavLink>
         </header>
     )
 }
