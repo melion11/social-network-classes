@@ -10,8 +10,7 @@ import {
 import {Users} from "./Users";
 import {Preloader} from "../UI/Preloader/Preloader";
 import {withRedirect} from "../Login/withRedirect";
-
-
+import {compose} from "redux";
 
 class UsersClass extends React.Component<MapStateToPropsType & MapDispatchToPropsType, any> {
 
@@ -23,7 +22,6 @@ class UsersClass extends React.Component<MapStateToPropsType & MapDispatchToProp
         this.props.setSelectedPage(page);
         this.props.getUsers(page, this.props.pageSize)
     };
-
 
     render() {
 
@@ -47,7 +45,6 @@ class UsersClass extends React.Component<MapStateToPropsType & MapDispatchToProp
     }
 
 }
-
 
 export type MapStateToPropsType = {
     users: UserType[]
@@ -77,6 +74,30 @@ export type MapDispatchToPropsType = {
     getUsers: (currentPage: number, pageSize: number) => void
 }
 
+
+export const UsersContainer = compose(
+    withRedirect,
+    connect(mapStateToProps, {follow,unfollow,setSelectedPage,getUsers}))
+(UsersClass)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // const mapDispatchToProps = (dispatch: Dispatch) => {
 //     return {
 //         getFollowUser: (userId: number, followValue: boolean) => {
@@ -100,9 +121,3 @@ export type MapDispatchToPropsType = {
 //     }
 //
 // }
-
-
-const UsersConnect = connect(mapStateToProps, {follow,unfollow,setSelectedPage,getUsers})
-(UsersClass)
-
-export const UsersContainer = withRedirect(UsersConnect)

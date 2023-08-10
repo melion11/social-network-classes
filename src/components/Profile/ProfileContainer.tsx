@@ -7,7 +7,7 @@ import {Preloader} from "../UI/Preloader/Preloader";
 import {toggleIsFetching} from "../../redux/userReducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {withRedirect} from "../Login/withRedirect";
-
+import {compose} from "redux";
 
 
 export type MapStateToPropsType = {
@@ -53,7 +53,9 @@ export class ProfileClass extends React.Component<MapStateToPropsType & MapDispa
 
 }
 
+export const ProfileContainer = compose(
+    withRedirect,
+    withRouter,
+    connect(mapStateToProps, {getProfile, toggleIsFetching}))(ProfileClass)
 
-export const ProfileConnect = connect(mapStateToProps, {getProfile, toggleIsFetching})(withRouter(ProfileClass))
 
-export const ProfileContainer = withRedirect(ProfileConnect)

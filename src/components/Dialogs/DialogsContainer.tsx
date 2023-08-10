@@ -3,6 +3,7 @@ import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {StateType} from "../../redux/redux-store";
 import {withRedirect} from "../Login/withRedirect";
+import {compose} from "redux";
 
 
 
@@ -22,8 +23,7 @@ const mapDispatchToProps = (dispatch: any) => {
 }
 
 
-export const DialogsConnect = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+export const DialogsContainer = compose(withRedirect, connect(mapStateToProps, mapDispatchToProps))(Dialogs)
 
-export const DialogsContainer = withRedirect(DialogsConnect)
 
 

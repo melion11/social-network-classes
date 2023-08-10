@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {StateType} from "../../../redux/redux-store";
 import {Settings} from "./Settings";
 import {withRedirect} from "../../Login/withRedirect";
-import {DialogsConnect} from "../../Dialogs/DialogsContainer";
+
 
 
 
