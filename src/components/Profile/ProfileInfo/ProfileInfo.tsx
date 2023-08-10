@@ -1,6 +1,7 @@
 import React from 'react';
 import s from './ProfileInfo.module.css'
 import {UserProfileType} from "../../../redux/redux-store";
+import {ProfileStatus} from "../ProfileStatus/ProfileStatus";
 
 
 export type ProfileInfoPropsType = {
@@ -23,7 +24,8 @@ export const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
                 <div className={s.profile__header}>
                     <img className={s.profile__avatar} src={userProfile.photos.small ? userProfile.photos.small : 'https://placehold.co/50x50?text=No+Avatar'} alt={"avatar"} />
                     <h2 className={s.profile__name}>{userProfile.fullName}</h2>
-                    <p className={s.profile__status}>{userProfile.aboutMe}</p>
+                    {/*<p className={s.profile__status}>{userProfile.aboutMe}</p>*/}
+                    <ProfileStatus status={userProfile.aboutMe}/>
                 </div>
                 <div className={s.profile__description}>
                     <div className={s.profile__item}>
