@@ -1,6 +1,6 @@
 import {ProfilePageType, UserProfileType} from "./redux-store";
 import {toggleIsFetching, ToggleIsFetchingACType} from "./userReducer";
-import {usersAPI} from "../api/api";
+import {profileAPI, usersAPI} from "../api/api";
 
 
 
@@ -30,14 +30,14 @@ const initialState : ProfilePageType =  {
             small: '',
             large: ''},
     },
+    status: '',
     isFetching: false
 }
 
 
 
-export type UnionType = AddPostACType | UpdatePostACType | SetUserACType | ToggleIsFetchingACType
-
-
+export type UnionType = AddPostACType | UpdatePostACType | SetUserACType | ToggleIsFetchingACType | GetStatusACType |
+    SetUserStatusType
 
 
 export const profileReducer = (state: ProfilePageType = initialState, action: UnionType): ProfilePageType => {
@@ -56,7 +56,12 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Un
            case "TOGGLE-IS-FETCHING": {
                return {...state, isFetching: action.payload.isFetching}
            }
-
+           case "GET-STATUS": {
+               return {...state, status: action.payload.statusText}
+           }
+           case "SET-STATUS": {
+               return {...state, status: action.payload.status}
+           }
 
            default: return state
         }
@@ -92,11 +97,57 @@ export const setUser = (user: UserProfileType) => {
 }
 
 
+export type GetStatusACType = ReturnType<typeof getUserStatus>
+export const getUserStatus = (statusText: string) => {
+    return {
+        type: 'GET-STATUS',
+        payload: {
+            statusText
+        }
+    } as const
+}
+
+
+export type SetUserStatusType = ReturnType<typeof setUserStatus>
+export const setUserStatus = (status: string) => {
+    return {
+        type: 'SET-STATUS',
+        payload: {
+            status
+        }
+    } as const
+}
+
 export const getProfile = (userId: number) => (dispatch: any) => {
-        dispatch(toggleIsFetching(true))
-            usersAPI.getProfile(userId)
-            .then(data => {
+    dispatch(toggleIsFetching(true))
+    usersAPI.getProfile(userId)
+        .then(data => {
             dispatch(toggleIsFetching(false))
             dispatch(setUser(data))
+        })
+}
+
+
+// export const getStatus = (userId: number) => (dispatch: any) => {
+//     profileAPI.getStatus(userId).then(status => {
+//         dispatch(getUserStatus(status))
+//     })
+// }
+//
+// }
+export const getStatus =  (userId: number) => async (dispatch: any) => {
+      const status = await profileAPI.getStatus(userId)
+      dispatch(getUserStatus(status))
+ }
+
+export const updateStatus = (status: string) => (dispatch: any) => {
+
+    profileAPI.updateStatus(status).then(response => {
+        debugger
+        if (response.data.resultCode === 0) {
+            dispatch(setUserStatus(status))
+        }
     })
+
+
 }

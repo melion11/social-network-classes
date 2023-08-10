@@ -9,7 +9,8 @@ import {UserProfileType} from "../../redux/redux-store";
 
 export type ProfilePropsType = {
         userProfile: UserProfileType
-
+        userStatus: string
+        updateStatus: (status: string) => void
 }
 
 
@@ -21,7 +22,7 @@ export const Profile = (props: ProfilePropsType) => {
 
     return (
         <div className={s.content}>
-            <ProfileInfo userProfile={props.userProfile}/>
+            <ProfileInfo userProfile={props.userProfile} userStatus={props.userStatus} updateStatus={props.updateStatus}/>
             <MyPostsContainer />
         </div>
     )

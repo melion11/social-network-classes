@@ -70,6 +70,7 @@ export type ProfilePageType = {
     posts: PostType[]
     newPostText: string
     userProfile: UserProfileType
+    status: string
     isFetching: boolean
 }
 

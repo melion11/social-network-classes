@@ -1,0 +1,34 @@
+.status-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.status-span {
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.status-span:hover {
+    background-color: #e6ceff;
+    color: #3f3f3f;
+}
+
+.status-input {
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.status-input:focus {
+    outline: none;
+    border-color: #0077ff;
+    box-shadow: 0 0 2px #0077ff;
+}

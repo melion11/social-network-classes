@@ -78,10 +78,6 @@ export const Users = (props: UsersPropsType) => {
                             <div>
                                 <div className={s["user-card__name"]}>{u.name}</div>
                                 <div className={s["user-card__status"]}>{u.status}</div>
-                                <div className={s["user-card__location"]}>
-                                    <span className={s["user-card__country"]}>{"u.location.country"}</span>
-                                    <span>{"u.location.city"}</span>
-                                </div>
                             </div>
                             <div>
                                 {u.followed
