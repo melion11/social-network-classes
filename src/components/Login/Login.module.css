@@ -16,6 +16,7 @@
     flex-direction: column;
     gap: 0.5rem;
     font-weight: bold;
+    color: #c75ec7;
 }
 
 .input {
@@ -47,4 +48,8 @@
 
 .button:active {
     background-color: #e1c6f1;
+}
+
+.formSummaryError {
+    color: #e54e4e;
 }

@@ -64,12 +64,10 @@ export type UsersPageType = {
 export type DialogsPageType = {
     dialogs: DialogType[]
     messages: MessageType[]
-    newMessageText: string
 }
 
 export type ProfilePageType = {
     posts: PostType[]
-    newPostText: string
     userProfile: UserProfileType
     status: string
     isFetching: boolean
@@ -79,9 +77,7 @@ export type AuthType = {
     id: number | null
     email: string | null
     login: string | null
-    isFetching: boolean
     isAuth: boolean
-    error: string | null
 }
 
 

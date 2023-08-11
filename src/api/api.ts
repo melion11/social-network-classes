@@ -1,5 +1,5 @@
 import axios from "axios";
-import {LoginRequest} from "../redux/auth-Reducer";
+
 
 
 const instance = axios.create({
@@ -8,12 +8,17 @@ const instance = axios.create({
     headers: {'API-KEY': '657a93da-d266-4c0b-9fc8-fdc066332027'}
 })
 
+
+
+
+
+
 export const authAPI = {
     getAuth(){
         return instance.get('auth/me').then(response => response.data)
     },
-    getLogIn(values: any) {
-        return instance.post('/auth/login', {...values}).then(response =>  response.data)
+    getLogIn(email: string, password: string, rememberMe: boolean) {
+        return instance.post('/auth/login', {email, password, rememberMe}).then(response =>  response.data)
     },
     getLogOut() {
         return instance.delete('/auth/login').then(response => response.data)

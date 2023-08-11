@@ -1,12 +1,20 @@
 import React from 'react';
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
-import {StateType} from "../../redux/redux-store";
+import {DialogType, MessageType, StateType} from '../../redux/redux-store';
 import {withRedirect} from "../Login/withRedirect";
 import {compose} from "redux";
+import {newMessage} from '../../redux/dialogsReducer';
 
 
+type MapStateToProps = {
+    dialogs: DialogType[]
+    messages: MessageType[]
+}
 
+type MapDispatchToProps = {
+    newMessage: (newMessageBody: string)=>void
+}
 
 
 const mapStateToProps = (state: StateType) => {
@@ -16,14 +24,10 @@ const mapStateToProps = (state: StateType) => {
     }
 }
 
-const mapDispatchToProps = (dispatch: any) => {
-    return {
-
-    }
-}
 
 
-export const DialogsContainer = compose(withRedirect, connect(mapStateToProps, mapDispatchToProps))(Dialogs)
+
+export const DialogsContainer = compose(withRedirect, connect(mapStateToProps, {newMessage}))(Dialogs)
 
 
 

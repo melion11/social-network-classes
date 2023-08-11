@@ -14,23 +14,18 @@ const initialState : DialogsPageType = {
         {id: 1, message: 'Hello, how are you?'},
         {id: 2, message: 'Im fine, thx'},
         {id: 3, message: 'Okay'}
-    ],
-        newMessageText: ''
+    ]
+
 }
 
-export type UnionType = NewMessageACType | UpdateMessageACType
+export type UnionType = NewMessageACType
 
 
 export const dialogsReducer = (state: DialogsPageType = initialState, action:UnionType) : DialogsPageType => {
         switch (action.type) {
             case "NEW-MESSAGE": {
-                let newMessage = {id: 4 , message: state.newMessageText}
-                state.newMessageText = ''
+                let newMessage = {id: 4 , message: action.payload.newMessageBody}
                 return {...state, messages: [...state.messages, newMessage]}
-            }
-            case "UPDATE-MESSAGE": {
-                   return {...state, newMessageText: action.payload.updateMessageText}
-
             }
             default: return state
         }
@@ -39,19 +34,13 @@ export const dialogsReducer = (state: DialogsPageType = initialState, action:Uni
 
 
 
-export type NewMessageACType = ReturnType<typeof newMessageAC>
-export const newMessageAC = () => {
+export type NewMessageACType = ReturnType<typeof newMessage>
+export const newMessage = (newMessageBody: string) => {
     return {
         type: 'NEW-MESSAGE',
-    } as const
-}
-
-export type UpdateMessageACType = ReturnType<typeof updateMessageAC>
-export const updateMessageAC = (updateMessageText: string) => {
-    return {
-        type: 'UPDATE-MESSAGE',
         payload: {
-            updateMessageText
+            newMessageBody
         }
     } as const
 }
+

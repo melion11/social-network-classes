@@ -3,7 +3,7 @@
 .nav {
     grid-area: n;
     width: 230px;
-    background-color: #e6ceff;
+    background-image: linear-gradient(to bottom, #dea0de, #ffe8d6);
     box-shadow: 0 10px 20px rgba(0,0,0,0.3);
     border-radius: 5px;
 }

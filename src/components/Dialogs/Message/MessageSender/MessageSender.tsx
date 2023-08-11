@@ -1,29 +1,32 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, FC} from 'react';
 import s from './MessageSender.module.css'
+import {Field, InjectedFormProps, reduxForm} from 'redux-form';
+import {FormControl, Textarea} from '../../../common/FormControls/FormsControls';
+import {maxLength, required} from '../../../../utils/validators/validators';
 
-export type MessageSenderPropsType = {
-    newMessageText: string
-    getNewMessage: ()=>void
-    updateNewMessage: (text: string)=>void
+
+export type MessageInputType = {
+    newMessageBody: string
 }
 
+const maxLength100 = maxLength(100)
 
-export const MessageSender = (props: MessageSenderPropsType) => {
+const MessageSender: FC<InjectedFormProps<MessageInputType>> = (props) => {
 
-    const newMessageHandler = () => props.getNewMessage()
-
-    const updateNewMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-       props.updateNewMessage(e.currentTarget.value)
-    }
+    const {handleSubmit} = props
 
 
     return (
-        <div className={s.sendForm}>
-           <textarea  className={s.textarea} placeholder={'Type your new message'}
-                value={props.newMessageText}
-                onChange={updateNewMessageHandler}/>
-           <button className={s.button} onClick={newMessageHandler}>Send</button>
-        </div>
+        <form className={s.sendForm} onSubmit={handleSubmit}>
+           <Field  className={s.textarea} placeholder={'Type your new message'}
+                   component={Textarea}  name={'newMessageBody'}
+                    validate={[required, maxLength100]}
+           />
+           <button className={s.button}>Send</button>
+        </form>
     );
 };
 
+export default reduxForm<MessageInputType>({
+    form: 'dialogMessageForm'
+})(MessageSender)

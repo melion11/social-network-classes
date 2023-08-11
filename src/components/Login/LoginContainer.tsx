@@ -1,75 +1,41 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import LoginForm from './LoginForm';
-import {StateType} from "../../redux/redux-store";
+import LoginForm, {LoginFormData} from './LoginForm';
+import {getLogIn} from '../../redux/auth-Reducer';
+import {Redirect} from 'react-router-dom';
+import {StateType} from '../../redux/redux-store';
 
 
 type LoginProps = {
-
+    isAuth: boolean
+    getLogIn: (email: string, password: string, rememberMe: boolean) => void
 }
 
-class Login extends React.Component<any, LoginProps> {
-    handleSubmit(values: any){
+const Login = (props: LoginProps) => {
 
+    const handleSubmit = (values: LoginFormData) => {
+        const {email, password, rememberMe} = values
+        console.log(values)
+        props.getLogIn(email, password, rememberMe)
     };
 
-     render() {
+    if (props.isAuth) {
+        return <Redirect to={'/profile'}/>
+    }
+
          return (
              <div>
-                 <LoginForm onSubmit={this.handleSubmit} />
+                 <LoginForm onSubmit={handleSubmit} />
              </div>
          );
      }
 
-
-};
-
-const mapStateToProps = (state: StateType) => ({
-
-});
-
+const mapStateToProps = (state: StateType) => {
+    return {
+        isAuth: state.auth.isAuth
+    }
+}
 
 
-export default connect(mapStateToProps, {})(Login);
+export default connect(mapStateToProps, {getLogIn})(Login);
 
-
-
-
-// import React from 'react';
-// import { connect } from 'react-redux';
-// import LoginForm from './LoginForm';
-// import {StateType} from "../../redux/redux-store";
-// import {login, LoginRequest} from "../../redux/auth-Reducer";
-//
-// interface LoginProps {
-//     userId: number | null;
-//     error: string | null;
-//     login: (requestData: LoginRequest) => void;
-// }
-//
-// const Login: React.FC<LoginProps> = ({ userId, error, login }) => {
-//     const handleSubmit = (values: LoginRequest) => {
-//         const { email, password, rememberMe } = values;
-//         login({ email, password, rememberMe });
-//     };
-//
-//     if (userId) {
-//         return <div>You are logged in as user {userId}</div>;
-//     }
-//
-//     return (
-//         <div>
-//             {error && <div>{error}</div>}
-//             <LoginForm onSubmit={handleSubmit} />
-//         </div>
-//     );
-// };
-//
-// const mapStateToProps = (state: StateType) => ({
-//     userId: state.auth.id,
-//     error: state.auth.error
-// });
-//
-//
-//
-// export default connect(mapStateToProps, {login})(Login);

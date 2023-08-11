@@ -1,0 +1,18 @@
+.postInput {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+    margin-bottom: 10px;
+    max-width: 250px;
+}
+
+.formControl.error input,
+.formControl.error textarea {
+    border:  solid #e54e4e 2px;
+}
+
+.formControl.error span {
+    color: #e54e4e;
+}

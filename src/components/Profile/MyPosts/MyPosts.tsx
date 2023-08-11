@@ -1,43 +1,34 @@
-import React from 'react';
+import React, {FC} from 'react';
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
 import {PostType} from "../../../redux/redux-store";
-import {InjectedFormProps, reduxForm} from "redux-form";
+import AddPostForm, {InputDataType} from './AddMessageForm/AddPostForm';
+
+
 
 
 
 
 export type MyPostsPropsType = {
     posts: PostType[]
-    newPostText: string
-    addPost: ()=>void
-    updatePost: (newPostElement:string)=>void
-
+    addPost: (newMessageBody: string)=>void
 }
 
-export const MyPosts : React.FC<InjectedFormProps<MyPostsPropsType> & MyPostsPropsType>= (props: MyPostsPropsType) => {
+export const MyPosts : React.FC<MyPostsPropsType>= (props) => {
+   const {posts, addPost} = props
 
-    const postsElements = props.posts.map(post => <Post key={post.id} id={post.id} message={post.message} likeCount={post.likeCount}/>)
-    const newPostElement = React.createRef<HTMLTextAreaElement>()
+    const postsElements = posts.map(post => <Post key={post.id} id={post.id} message={post.message} likeCount={post.likeCount}/>)
 
 
-    const onChangePostText = () => {
-        if (newPostElement.current) props.updatePost(newPostElement.current.value)
+    const addNewPostHandler = (values: InputDataType) => {
+        addPost(values.newMessageBody)
     }
+
 
     return (
 
     <div className={s.postContainer}>
-           <form className={s.postForm}>
-                <div className={s.postInputContainer}>
-                <textarea className={s.postInput} id="postInput" value={props.newPostText} onChange={onChangePostText} ref={newPostElement} placeholder="Type your post here"></textarea>
-                <div className={s.postInputControls}>
-                    <span className={s.postInputLength} data-testid="postInputLength">{props.newPostText.length}</span>
-                    <span className={s.postInputMaxLength} data-testid="postInputMaxLength">/ {100}</span>
-                </div>
-            </div>
-            <button className={s.postButton} onClick={props.addPost} disabled={props.newPostText.length === 0 || props.newPostText.length > 100}>Add Post</button>
-        </form>
+           <AddPostForm onSubmit={addNewPostHandler}/>
         <div className={s.postList}>
             {postsElements}
         </div>
@@ -45,6 +36,5 @@ export const MyPosts : React.FC<InjectedFormProps<MyPostsPropsType> & MyPostsPro
     )
 }
 
-  MyPosts = reduxForm({
-      form: 'post'
-  })(MyPosts)
+
+

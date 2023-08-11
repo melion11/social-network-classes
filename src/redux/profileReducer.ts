@@ -9,7 +9,6 @@ const initialState : ProfilePageType =  {
         {id: 1,message: 'Hello, my name is Ilya', likeCount: 15},
         {id: 2,message: 'Im busy', likeCount: 20}
     ],
-    newPostText: 'it-kamasutra',
     userProfile: {
         aboutMe: '',
         contacts: {
@@ -36,19 +35,15 @@ const initialState : ProfilePageType =  {
 
 
 
-export type UnionType = AddPostACType | UpdatePostACType | SetUserACType | ToggleIsFetchingACType | GetStatusACType |
+export type UnionType = AddPostACType | SetUserACType | ToggleIsFetchingACType | GetStatusACType |
     SetUserStatusType
 
 
 export const profileReducer = (state: ProfilePageType = initialState, action: UnionType): ProfilePageType => {
        switch (action.type) {
             case "ADD-POST": {
-                    let newPost =  {id: 3,message: state.newPostText, likeCount: 0}
-                    state.newPostText = ''
+                    let newPost =  {id: 3,message: action.payload.newMessageBody, likeCount: 0}
                     return {...state, posts: [newPost,...state.posts]}
-            }
-            case "UPDATE-POST": {
-                return {...state, newPostText: action.payload.newText}
             }
            case "SET-USER": {
                return {...state, userProfile: action.payload.user}
@@ -70,18 +65,11 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Un
 
 
 export type AddPostACType = ReturnType<typeof addPost>
-export const addPost = () => {
+export const addPost = (newMessageBody: string) => {
     return {
-        type: 'ADD-POST'
-    } as const
-}
-
-export type UpdatePostACType = ReturnType<typeof updatePost>
-export const updatePost = (newText: string) => {
-    return {
-        type: 'UPDATE-POST',
+        type: 'ADD-POST',
         payload: {
-            newText
+            newMessageBody
         }
     } as const
 }

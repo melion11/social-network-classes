@@ -1,6 +1,7 @@
-import {AuthType, StateType} from "./redux-store";
-import {toggleIsFetching, ToggleIsFetchingACType} from "./userReducer";
-import {authAPI} from "../api/api";
+import {AuthType} from './redux-store';
+import {toggleIsFetching} from './userReducer';
+import {authAPI} from '../api/api';
+import {stopSubmit} from 'redux-form';
 
 
 
@@ -8,39 +9,27 @@ const initialState = {
     id: null,
     email: null,
     login: null,
-    isFetching: false,
     isAuth: false,
-    error: null
 }
 
-
-// export type LoginRequest = {
-//     email: string;
-//     password: string;
-//     rememberMe: boolean;
-// }
 
 
 export const authReducer = (state: AuthType = initialState, action: UnionType): AuthType => {
     switch (action.type) {
-        case "SET-USER-DATA": {
+        case 'SET-USER-DATA': {
             return {...state, ...action.payload.userData, isAuth: true}
         }
-        case "TOGGLE-IS-FETCHING": {
-            return {...state, isFetching: action.payload.isFetching}
+        case 'RESET-USER-DATA': {
+            return {...state, ...initialState}
         }
-        // case 'LOGIN_SUCCESS': {
-        //     return {...state, id: action.payload.userId, error: null};
-        // }
-        // case 'LOGIN_FAILURE': {
-        //     return {...state, id: null, error: action.payload.error};
-        // }
+
+
         default:
             return state
     }
 }
 
-export type UnionType = SetUserDataACType | ToggleIsFetchingACType
+export type UnionType = SetUserDataACType | ResetUserDataACType
 
 export type SetUserDataACType = ReturnType<typeof setUserData>
 export const setUserData = (userData: AuthType) => {
@@ -62,40 +51,39 @@ export const getAuth = () => (dispatch: any) => {
     })
 }
 
+export const getLogIn = (email: string, password: string, rememberMe: boolean) => async (dispatch: any) => {
+    dispatch(toggleIsFetching(true))
+    let data = await authAPI.getLogIn(email, password, rememberMe)
+    if (data.resultCode === 0) {
+        dispatch(toggleIsFetching(false))
+        dispatch(getAuth())
+    } else {
+               let message = data.messages.length > 0 ? data.messages[0] : 'Some error'
+        dispatch(stopSubmit('loginForm', {_error: message}))
+    }
+}
 
 
 
 
 
+export type ResetUserDataACType = ReturnType<typeof resetUserData>
+export const resetUserData = () => {
+    return {
+        type: 'RESET-USER-DATA',
+    } as const
+}
 
-// export type LoginSuccessType = ReturnType<typeof getLoginSuccess>
-// export const getLoginSuccess = (userId: number) => {
-//     return {
-//         type: 'LOGIN_SUCCESS',
-//         payload: {
-//             userId
-//         }
-//     } as const
-// }
-//
-// export type LoginFailureType = ReturnType<typeof getLoginFailure>
-// export const getLoginFailure = (error: string) => {
-//     return {
-//         type: 'LOGIN_FAILURE',
-//         payload: {
-//             error
-//         }
-//     } as const
-// }
-//
-//
-// export const login = (requestData: LoginRequest): ThunkAction<void, StateType, unknown, LoginSuccessType | LoginFailureType> => {
-//     return async (dispatch) => {
-//         try {
-//             const response = await authAPI.getLogIn(requestData);
-//             dispatch(getLoginSuccess(response.data.userId));
-//         } catch (error: any) {
-//             dispatch(getLoginFailure(error.message));
-//         }
-//     };
-// };
+
+export const getLogOut = () => (dispatch: any) => {
+    dispatch(toggleIsFetching(true))
+    authAPI.getLogOut().then((res) => {
+        if (res.data.resultCode === 0) {
+            dispatch(resetUserData())
+        }
+    })
+}
+
+
+
+
