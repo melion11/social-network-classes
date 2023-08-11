@@ -1,4 +1,5 @@
 import axios from "axios";
+import {LoginRequest} from "../redux/auth-Reducer";
 
 
 const instance = axios.create({
@@ -6,6 +7,20 @@ const instance = axios.create({
     withCredentials: true,
     headers: {'API-KEY': '657a93da-d266-4c0b-9fc8-fdc066332027'}
 })
+
+export const authAPI = {
+    getAuth(){
+        return instance.get('auth/me').then(response => response.data)
+    },
+    getLogIn(values: any) {
+        return instance.post('/auth/login', {...values}).then(response =>  response.data)
+    },
+    getLogOut() {
+        return instance.delete('/auth/login').then(response => response.data)
+    }
+}
+
+
 
 export const usersAPI = {
     getUsers(currentPage: number, pageSize:number) {
@@ -37,10 +52,6 @@ export const profileAPI = {
 }
 
 
-export const authAPI = {
-    getAuth(){
-        return instance.get('auth/me').then(response => response.data)
-    }
-}
+
 
 

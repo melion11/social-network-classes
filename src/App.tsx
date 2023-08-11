@@ -6,10 +6,11 @@ import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./components/Users/UsersContainer";
 import {ProfileContainer} from "./components/Profile/ProfileContainer";
 import {HeaderContainer} from "./components/UI/Header/HeaderContainer";
-import {LoginContainer} from "./components/Login/LoginContainer";
 import {NewsContainer} from "./components/UI/News/NewsContainer";
 import {SettingsContainer} from "./components/UI/Settings/SettingsContainer";
 import {MusicContainer} from "./components/UI/Music/MusicContainer";
+import LoginContainer from "./components/Login/LoginContainer";
+
 
 
 function App() {

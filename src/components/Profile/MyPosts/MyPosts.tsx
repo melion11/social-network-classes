@@ -2,6 +2,7 @@ import React from 'react';
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
 import {PostType} from "../../../redux/redux-store";
+import {InjectedFormProps, reduxForm} from "redux-form";
 
 
 
@@ -14,7 +15,7 @@ export type MyPostsPropsType = {
 
 }
 
-export const MyPosts = (props: MyPostsPropsType) => {
+export const MyPosts : React.FC<InjectedFormProps<MyPostsPropsType> & MyPostsPropsType>= (props: MyPostsPropsType) => {
 
     const postsElements = props.posts.map(post => <Post key={post.id} id={post.id} message={post.message} likeCount={post.likeCount}/>)
     const newPostElement = React.createRef<HTMLTextAreaElement>()
@@ -27,7 +28,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
     return (
 
     <div className={s.postContainer}>
-           <div className={s.postForm}>
+           <form className={s.postForm}>
                 <div className={s.postInputContainer}>
                 <textarea className={s.postInput} id="postInput" value={props.newPostText} onChange={onChangePostText} ref={newPostElement} placeholder="Type your post here"></textarea>
                 <div className={s.postInputControls}>
@@ -36,10 +37,14 @@ export const MyPosts = (props: MyPostsPropsType) => {
                 </div>
             </div>
             <button className={s.postButton} onClick={props.addPost} disabled={props.newPostText.length === 0 || props.newPostText.length > 100}>Add Post</button>
-        </div>
+        </form>
         <div className={s.postList}>
             {postsElements}
         </div>
     </div>
     )
 }
+
+  MyPosts = reduxForm({
+      form: 'post'
+  })(MyPosts)

@@ -8,6 +8,7 @@ import {toggleIsFetching} from "../../redux/userReducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {withRedirect} from "../Login/withRedirect";
 import {compose} from "redux";
+import {authAPI} from "../../api/api";
 
 
 export type MapStateToPropsType = {
@@ -41,7 +42,7 @@ export class ProfileClass extends React.Component<MapStateToPropsType & MapDispa
         let userId = this.props.match.params.userId || 29258
         this.props.getProfile(userId)
         this.props.getStatus(userId)
-        console.log( this.props.getStatus(userId))
+
     }
 
 

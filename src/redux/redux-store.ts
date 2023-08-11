@@ -3,6 +3,7 @@ import {profileReducer} from "./profileReducer";
 import {dialogsReducer} from "./dialogsReducer";
 import {userReducer} from "./userReducer";
 import {authReducer} from "./auth-Reducer";
+import { reducer as formReducer } from 'redux-form'
 import thunk from "redux-thunk";
 
 export type UserType = {
@@ -80,6 +81,7 @@ export type AuthType = {
     login: string | null
     isFetching: boolean
     isAuth: boolean
+    error: string | null
 }
 
 
@@ -94,12 +96,14 @@ export const reducers = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     usersPage: userReducer,
-    auth: authReducer
+    auth: authReducer,
+    form: formReducer
 })
 
 export  const  store = createStore(reducers, applyMiddleware(thunk));
 
 
-
+// @ts-ignore
+window.store = store
 
 
