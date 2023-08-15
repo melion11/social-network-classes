@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {StateType} from "../../../redux/redux-store";
+import {StateType} from "../../redux/redux-store";
 import {Settings} from "./Settings";
-import {withRedirect} from "../../Login/withRedirect";
+import {withRedirect} from "../Login/withRedirect";
 
 
 

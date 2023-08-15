@@ -1,4 +1,4 @@
-import React, {ChangeEvent, createRef, useRef} from 'react';
+import React, {ChangeEvent, createRef, useEffect, useRef, useState} from 'react';
 import s from './ProfileStatus.module.css'
 
 
@@ -8,60 +8,44 @@ export type ProfileInfoPropsType = {
 }
 
 
-export class ProfileStatus extends React.Component<ProfileInfoPropsType> {
-    // statusInputRef = createRef<HTMLInputElement>()
-    state = {
-        editMode: false,
-        userStatus: this.props.userStatus
+export const ProfileStatus: React.FC<ProfileInfoPropsType> = (props) => {
+    const {userStatus, updateStatus} = props
+
+   const [editMode, setEditMode] = useState(false)
+   const [status, setStatus] = useState(userStatus)
+
+    const activateEditMode = () => {
+        setEditMode(true)
     }
 
-
-    activateEditMode() {
-        this.setState({
-            editMode: true
-        })
-    }
-
-    deActivateEditMode() {
-        this.props.updateStatus(this.state.userStatus)
-          this.setState({
-            editMode: false
-        })
+    const deActivateEditMode = () => {
+        updateStatus(status)
+        setEditMode(false)
 
     }
 
-    onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        this.setState({
-            userStatus: e.currentTarget.value
-        })
+    useEffect(()=> {
+        setStatus(userStatus)
+    }, [userStatus])
+
+
+   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setStatus(e.currentTarget.value)
     }
 
-    componentDidUpdate(prevProps: Readonly<ProfileInfoPropsType>, prevState: Readonly<{}>, snapshot?: any) {
-        if (prevProps.userStatus !== this.props.userStatus) {
-            this.setState({
-                userStatus: this.props.userStatus
-            })
-        }
-    }
-
-    // ref={this.statusInputRef}
-
-    render() {
-
-        const spanMode = <span className={s['status-span']} onDoubleClick={this.activateEditMode.bind(this)}>
-            {this.props.userStatus || 'Click to add status'}
+    const spanMode = <span className={s['status-span']} onDoubleClick={activateEditMode}>
+            {userStatus || 'Click to add status'}
         </span>
 
 
-        const inputMode = <input className={s['status-input']} autoFocus={true} value={this.state.userStatus}
-                                 onChange={this.onChangeHandler} onBlur={this.deActivateEditMode.bind(this)}
-        />
+    const inputMode = <input className={s['status-input']} autoFocus={true} value={status}
+                             onChange={onChangeHandler} onBlur={deActivateEditMode}/>
 
 
         return (
             <div className={s['status-container']}>
-                {this.state.editMode ? inputMode : spanMode}
+                {editMode ? inputMode : spanMode}
             </div>
         )
-    }
+
 }

@@ -1,9 +1,9 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {StateType} from "../../../redux/redux-store";
+import {StateType} from "../../redux/redux-store";
 import {Music} from "./Music";
-import {withRedirect} from "../../Login/withRedirect";
-import {SettingsConnect} from "../Settings/SettingsContainer";
+import {withRedirect} from "../Login/withRedirect";
+
 
 
 

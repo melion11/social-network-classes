@@ -31,8 +31,10 @@
     color: #494545;
     text-decoration: none;
     font-family: 'VK';
+    cursor: pointer;
 }
 
 .activeLink {
    color: #c171ef;
+   cursor: pointer;
 }

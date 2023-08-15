@@ -14,15 +14,15 @@ export type ProfilePropsType = {
 }
 
 
-export const Profile = (props: ProfilePropsType) => {
-
+export const Profile: React.FC<ProfilePropsType> = (props ) => {
+        const {userProfile, userStatus, updateStatus} = props
 
 
 
 
     return (
         <div className={s.content}>
-            <ProfileInfo userProfile={props.userProfile} userStatus={props.userStatus} updateStatus={props.updateStatus}/>
+            <ProfileInfo userProfile={userProfile} userStatus={userStatus} updateStatus={updateStatus}/>
             <MyPostsContainer />
         </div>
     )

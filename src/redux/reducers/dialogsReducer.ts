@@ -1,4 +1,4 @@
-import {DialogsPageType} from "./redux-store";
+import {DialogsPageType} from "../redux-store";
 
 
 
@@ -23,7 +23,7 @@ export type UnionType = NewMessageACType
 
 export const dialogsReducer = (state: DialogsPageType = initialState, action:UnionType) : DialogsPageType => {
         switch (action.type) {
-            case "NEW-MESSAGE": {
+            case "/dialogs/NEW-MESSAGE": {
                 let newMessage = {id: 4 , message: action.payload.newMessageBody}
                 return {...state, messages: [...state.messages, newMessage]}
             }
@@ -31,13 +31,10 @@ export const dialogsReducer = (state: DialogsPageType = initialState, action:Uni
         }
 }
 
-
-
-
 export type NewMessageACType = ReturnType<typeof newMessage>
 export const newMessage = (newMessageBody: string) => {
     return {
-        type: 'NEW-MESSAGE',
+        type: '/dialogs/NEW-MESSAGE',
         payload: {
             newMessageBody
         }

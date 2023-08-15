@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {News} from "./News";
-import {StateType} from "../../../redux/redux-store";
-import {withRedirect} from "../../Login/withRedirect";
+import {StateType} from "../../redux/redux-store";
+import {withRedirect} from "../Login/withRedirect";
 import {MusicConnect} from "../Music/MusicContainer";
 
 

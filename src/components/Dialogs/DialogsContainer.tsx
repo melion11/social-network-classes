@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {DialogType, MessageType, StateType} from '../../redux/redux-store';
 import {withRedirect} from "../Login/withRedirect";
 import {compose} from "redux";
-import {newMessage} from '../../redux/dialogsReducer';
+import {newMessage} from '../../redux/reducers/dialogsReducer';
 
 
 type MapStateToProps = {

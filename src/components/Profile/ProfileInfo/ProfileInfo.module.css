@@ -5,7 +5,6 @@
     justify-content: center;
     border-radius: 20px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
-    background-color: #fff;
     width: 100%;
     max-width: 960px;
     height: auto;
@@ -13,6 +12,9 @@
     position: relative;
     color: #fff;
     z-index: 1;
+    background-image: url('https://avatars.mds.yandex.net/i?id=4656e8abe71d7f4be5101991ec115bbc-4211711-images-thumbs&n=13');
+    background-size: cover;
+    background-position: center;
 }
 
 .profile__content {
@@ -20,11 +22,6 @@
     z-index: 1;
 }
 
-.profile__avatar {
-    transform: scale(1.5);
-    border-radius: 50px;
-    margin-bottom: 15px;
-}
 
 .profile__overlay {
     position: absolute;
@@ -37,69 +34,3 @@
     z-index: 0;
 }
 
-.profile__header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 80px;
-    margin-bottom: 20px;
-}
-
-.profile__description {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    padding: 40px;
-    z-index: 1;
-}
-
-.profile__item {
-    width: calc(50% - 10px);
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-    align-items: center;
-    transition: all 0.3s ease;
-}
-
-.profile__label {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.profile__text {
-    font-size: 16px;
-}
-
-.profile__text p {
-    font-size: 16px;
-    line-height: 1.5;
-    color: #d2d2d2;
-    margin: 0;
-}
-
-.profile__links {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.profile__link {
-    display: inline-block;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    font-size: 16px;
-    text-decoration: none;
-    color: #e3e3e3;
-    border: 1px solid #d3d3d3;
-    padding: 5px 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    cursor: pointer;
-}
-
-.profile__link:hover,
-.profile__link:focus {
-    background-color: #e6ceff;
-    color: #3f3f3f;
-}

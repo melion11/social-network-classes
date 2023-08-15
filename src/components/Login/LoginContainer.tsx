@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import LoginForm, {LoginFormData} from './LoginForm';
-import {getLogIn} from '../../redux/auth-Reducer';
+import {getLogIn} from '../../redux/reducers/authReducer';
 import {Redirect} from 'react-router-dom';
 import {StateType} from '../../redux/redux-store';
 
@@ -11,17 +11,16 @@ type LoginProps = {
     getLogIn: (email: string, password: string, rememberMe: boolean) => void
 }
 
-const Login = (props: LoginProps) => {
+const Login: React.FC<LoginProps> = ({isAuth, getLogIn}) => {
 
     const handleSubmit = (values: LoginFormData) => {
         const {email, password, rememberMe} = values
         console.log(values)
-        props.getLogIn(email, password, rememberMe)
+        getLogIn(email, password, rememberMe)
     };
 
-    if (props.isAuth) {
-        return <Redirect to={'/profile'}/>
-    }
+    if (isAuth) return <Redirect to={'/profile'}/>
+
 
          return (
              <div>

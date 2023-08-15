@@ -2,12 +2,12 @@ import React from 'react';
 import {connect} from "react-redux";
 import {Profile} from "./Profile";
 import {StateType, UserProfileType} from "../../redux/redux-store";
-import {getProfile, getStatus, updateStatus} from "../../redux/profileReducer";
+import {getProfile, getStatus, updateStatus} from "../../redux/reducers/profileReducer";
 import {Preloader} from "../common/Preloader/Preloader";
-import {toggleIsFetching} from "../../redux/userReducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {withRedirect} from "../Login/withRedirect";
 import {compose} from "redux";
+import {toggleIsFetching} from '../../redux/reducers/appReducer';
 
 
 
@@ -30,7 +30,7 @@ export type MapDispatchToPropsType = {
 
 const mapStateToProps = (state: StateType) => {
     return {
-        isFetching: state.profilePage.isFetching,
+        isFetching: state.appPage.isFetching,
         userProfile: state.profilePage.userProfile,
         userStatus: state.profilePage.status,
         authUserId: state.auth.id,
@@ -43,7 +43,13 @@ export class ProfileClass extends React.Component<MapStateToPropsType & MapDispa
 
 
     componentDidMount() {
-        let userId = this.props.match.params.userId || this.props.authUserId
+        let userId = this.props.match.params.userId
+        if(!userId) {
+            userId = this.props.authUserId
+            if (!userId) {
+                this.props.history.push('/login')
+            }
+        }
         this.props.getProfile(userId)
         this.props.getStatus(userId)
     }

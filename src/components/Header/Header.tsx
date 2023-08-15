@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './Header.module.css'
 import {NavLink, Redirect} from 'react-router-dom';
-import {AuthType} from "../../../redux/redux-store";
+import {AuthType} from "../../redux/redux-store";
 
 
 export type HeaderPropsType = {
@@ -13,6 +13,10 @@ export type HeaderPropsType = {
 export const Header = (props: HeaderPropsType) => {
 
 
+    const logout = ()=>{
+        props.getLogOut()
+        return <Redirect to={'/login'}/>
+    }
 
 
     return (
@@ -35,9 +39,8 @@ export const Header = (props: HeaderPropsType) => {
             </div>
 
             {props.userData.isAuth ?
-                <NavLink to={'/login'} className={s.logout} onClick={props.getLogOut}>Log Out</NavLink> :
+                <NavLink to={'/login'} className={s.logout} onClick={logout}>Log Out</NavLink> :
                 <NavLink to={'/login'} className={s.logout}>Log In</NavLink>
-
             }
 
 

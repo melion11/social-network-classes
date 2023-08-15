@@ -1,10 +1,11 @@
-import {applyMiddleware, combineReducers, createStore} from "redux";
-import {profileReducer} from "./profileReducer";
-import {dialogsReducer} from "./dialogsReducer";
-import {userReducer} from "./userReducer";
-import {authReducer} from "./auth-Reducer";
+import {AnyAction, applyMiddleware, combineReducers, createStore} from 'redux';
+import {profileReducer} from "./reducers/profileReducer";
+import {dialogsReducer} from "./reducers/dialogsReducer";
+import {userReducer} from "./reducers/userReducer";
+import {authReducer} from "./reducers/authReducer";
 import { reducer as formReducer } from 'redux-form'
-import thunk from "redux-thunk";
+import thunk, {ThunkAction} from 'redux-thunk';
+import {appReducer} from './reducers/appReducer';
 
 export type UserType = {
     name: string
@@ -57,7 +58,6 @@ export type UsersPageType = {
     pageSize: number
     totalUserCount: number
     currentPage: number
-    isFetching: boolean
     followingInProgress: number[]
 }
 
@@ -70,7 +70,6 @@ export type ProfilePageType = {
     posts: PostType[]
     userProfile: UserProfileType
     status: string
-    isFetching: boolean
 }
 
 export type AuthType = {
@@ -80,12 +79,17 @@ export type AuthType = {
     isAuth: boolean
 }
 
+export type AppPageType = {
+    initialized: boolean
+    isFetching: boolean
+}
 
 export type StateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     usersPage: UsersPageType
     auth: AuthType
+    appPage: AppPageType
 }
 
 export const reducers = combineReducers({
@@ -93,11 +97,20 @@ export const reducers = combineReducers({
     dialogsPage: dialogsReducer,
     usersPage: userReducer,
     auth: authReducer,
+    appPage: appReducer,
     form: formReducer
 })
 
 export  const  store = createStore(reducers, applyMiddleware(thunk));
 
+
+export type RootState = ReturnType<typeof reducers>
+export type AppDispatch = typeof store.dispatch;
+
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType,
+    RootState,
+    unknown,
+    AnyAction>
 
 // @ts-ignore
 window.store = store
