@@ -5,11 +5,12 @@ import s from './ProfileStatus.module.css'
 export type ProfileInfoPropsType = {
     userStatus: string
     updateStatus: (status: string) => void
+    isOwner: boolean
 }
 
 
 export const ProfileStatus: React.FC<ProfileInfoPropsType> = (props) => {
-    const {userStatus, updateStatus} = props
+    const {userStatus, updateStatus, isOwner} = props
 
    const [editMode, setEditMode] = useState(false)
    const [status, setStatus] = useState(userStatus)
@@ -44,7 +45,7 @@ export const ProfileStatus: React.FC<ProfileInfoPropsType> = (props) => {
 
         return (
             <div className={s['status-container']}>
-                {editMode ? inputMode : spanMode}
+                {isOwner && editMode ? inputMode : spanMode}
             </div>
         )
 

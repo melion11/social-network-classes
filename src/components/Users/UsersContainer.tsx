@@ -4,7 +4,7 @@ import {StateType, UserType} from '../../redux/redux-store';
 import {follow, getRequestUsers, setSelectedPage, unfollow} from '../../redux/reducers/userReducer';
 import {Users} from './Users';
 import {Preloader} from '../common/Preloader/Preloader';
-import {withRedirect} from '../Login/withRedirect';
+import {withRedirect} from '../../hoc/withRedirect';
 import {compose} from 'redux';
 import {
     getCurrentPage,
@@ -14,7 +14,7 @@ import {
     getUsers
 } from '../../redux/selectors/userSelectors';
 
-class UsersClass extends React.Component<MapStateToPropsType & MapDispatchToPropsType, any> {
+export class UsersClass extends React.Component<MapStateToPropsType & MapDispatchToPropsType, any> {
 
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
@@ -25,7 +25,6 @@ class UsersClass extends React.Component<MapStateToPropsType & MapDispatchToProp
     };
 
     render() {
-
         return (
             <div>
                 {this.props.isFetching ? <Preloader/> :
@@ -74,12 +73,10 @@ export type MapDispatchToPropsType = {
 }
 
 
-export const UsersContainer = compose(
-    withRedirect,
-    connect(mapStateToProps, {follow,unfollow,getUsers: getRequestUsers}))
-(UsersClass)
+const UsersContainer = compose<React.ComponentType>(
+    connect(mapStateToProps, {follow,unfollow,getUsers: getRequestUsers}), withRedirect)(UsersClass)
 
-
+export default UsersContainer
 
 
 

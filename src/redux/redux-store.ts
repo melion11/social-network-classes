@@ -1,4 +1,4 @@
-import {AnyAction, applyMiddleware, combineReducers, createStore} from 'redux';
+import {AnyAction, applyMiddleware, combineReducers, compose, createStore} from 'redux';
 import {profileReducer} from "./reducers/profileReducer";
 import {dialogsReducer} from "./reducers/dialogsReducer";
 import {userReducer} from "./reducers/userReducer";
@@ -7,11 +7,17 @@ import { reducer as formReducer } from 'redux-form'
 import thunk, {ThunkAction} from 'redux-thunk';
 import {appReducer} from './reducers/appReducer';
 
+
+export type PhotosType = {
+    small: string,
+    large: string
+}
+
 export type UserType = {
     name: string
     id: number
     uniqueUrlName: string
-    photos: {small: string, large: string}
+    photos: PhotosType
     status: string
     followed: boolean
 
@@ -101,7 +107,9 @@ export const reducers = combineReducers({
     form: formReducer
 })
 
-export  const  store = createStore(reducers, applyMiddleware(thunk));
+const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+export  const  store = createStore(reducers,composeEnhancers(applyMiddleware(thunk)));
 
 
 export type RootState = ReturnType<typeof reducers>

@@ -1,24 +1,27 @@
 import React from 'react';
 import './App.css';
-import {Route, withRouter} from 'react-router-dom';
+import {HashRouter, Redirect, Route, withRouter} from 'react-router-dom';
 import {Navbar} from './components/NavBar/Navbar';
-import {DialogsContainer} from './components/Dialogs/DialogsContainer';
-import {UsersContainer} from './components/Users/UsersContainer';
-import {ProfileContainer} from './components/Profile/ProfileContainer';
 import {HeaderContainer} from './components/Header/HeaderContainer';
 import {NewsContainer} from './components/News/NewsContainer';
 import {SettingsContainer} from './components/Settings/SettingsContainer';
 import {MusicContainer} from './components/Music/MusicContainer';
-import LoginContainer from './components/Login/LoginContainer';
-import {connect} from 'react-redux';
+import {connect, Provider} from 'react-redux';
 import {compose} from 'redux';
 import {initializeApp} from './redux/reducers/appReducer';
-import {StateType} from './redux/redux-store';
+import {StateType, store} from './redux/redux-store';
 import {Preloader} from './components/common/Preloader/Preloader';
+import {withSuspense} from './hoc/withSuspense';
+
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
+const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
+const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'))
+const LoginContainer = React.lazy(() => import('./components/Login/LoginContainer'))
 
 
 type MapStateToPropsType = {
     initialized: boolean
+    isAuth: boolean
 }
 
 type MapDispatchToPropsType = {
@@ -43,19 +46,16 @@ class App extends React.Component<AppContainerPropsType> {
         return (
             <div className="appWrapper">
                 <HeaderContainer/>
-                <Navbar/>
+                {this.props.isAuth && <Navbar/>}
                 <div className={'appWrapperContent'}>
-                    <Route exact path={'/'} render={() => <ProfileContainer/>}/>
-                    <Route path={'/profile/:userId?'}
-                           render={() => <ProfileContainer/>}/>
-                    <Route path={'/dialogs'}
-                           render={() => <DialogsContainer/>}/>
+                    <Route path={'/profile/:userId?'} render={withSuspense(ProfileContainer)}/>
+                    <Route path={'/dialogs'} render={withSuspense(DialogsContainer)}/>
                     <Route path={'/news'} render={() => <NewsContainer/>}/>
                     <Route path={'/music'} render={() => <MusicContainer/>}/>
-                    <Route path={'/users'} render={() => <UsersContainer/>}/>
+                    <Route path={'/users'} render={withSuspense(UsersContainer)}/>
                     <Route path={'/settings'} render={() => <SettingsContainer/>}/>
-                    <Route path={'/login'}
-                           render={() => <LoginContainer/>}/>
+                    <Route path={'/login'} render={withSuspense(LoginContainer)}/>
+                    <Route exact path="/" render={() => <Redirect to="/profile"/>}/>
                 </div>
             </div>
         )
@@ -65,7 +65,8 @@ class App extends React.Component<AppContainerPropsType> {
 
 const mapStateToProps = (state: StateType) => {
     return {
-        initialized: state.appPage.initialized
+        initialized: state.appPage.initialized,
+        isAuth: state.auth.isAuth
     }
 }
 
@@ -74,4 +75,12 @@ export const AppContainer = compose<React.ComponentType>(
     withRouter,
     connect(mapStateToProps, {initializeApp}))(App)
 
-
+export const SamuraiApp = () => {
+    return (
+        <HashRouter>
+            <Provider store={store}>
+                <AppContainer/>
+            </Provider>
+        </HashRouter>
+    )
+}

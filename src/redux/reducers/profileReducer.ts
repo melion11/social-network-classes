@@ -1,4 +1,4 @@
-import {AppThunk, ProfilePageType, UserProfileType} from '../redux-store';
+import {AppThunk, PhotosType, ProfilePageType, UserProfileType} from '../redux-store';
 import {profileAPI, usersAPI} from '../../api/api';
 import {toggleIsFetching} from './appReducer';
 
@@ -33,7 +33,7 @@ const initialState: ProfilePageType = {
 }
 
 
-export type UnionType = AddPostACType | SetUserACType | GetStatusACType | SetUserStatusType
+export type UnionType = AddPostACType | SetUserACType | GetStatusACType | SetUserStatusType | SetUserPhotoType
 
 
 export const profileReducer = (state: ProfilePageType = initialState, action: UnionType): ProfilePageType => {
@@ -50,6 +50,11 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Un
         }
         case '/profile/SET-STATUS': {
             return {...state, status: action.payload.status}
+        }
+        case '/profile/SET-USER-PHOTO': {
+            debugger
+            return {...state, userProfile: {...state.userProfile,
+                    photos: action.payload.image}}
         }
 
         default:
@@ -99,6 +104,17 @@ export const setUserStatus = (status: string) => {
     } as const
 }
 
+export type SetUserPhotoType = ReturnType<typeof setUserPhoto>
+export const setUserPhoto = (image: PhotosType) => {
+    return {
+        type: '/profile/SET-USER-PHOTO',
+        payload: {
+            image
+        }
+    } as const
+}
+
+
 export const getProfile = (userId: number): AppThunk => async (dispatch) => {
     dispatch(toggleIsFetching(true))
     const data = await usersAPI.getProfile(userId)
@@ -116,5 +132,13 @@ export const updateStatus = (status: string): AppThunk => async (dispatch) => {
     const data = await profileAPI.updateStatus(status)
     if (data.data.resultCode === 0) {
         dispatch(setUserStatus(status))
+    }
+}
+
+export const updatePhoto = (image: File):AppThunk => async  (dispatch) => {
+    const response = await profileAPI.updatePhoto(image)
+    if (response.data.resultCode === 0) {
+        dispatch(setUserPhoto(response.data.data.photos))
+
     }
 }
