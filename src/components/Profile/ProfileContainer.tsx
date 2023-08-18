@@ -2,12 +2,13 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Profile} from './Profile';
 import {StateType, UserProfileType} from '../../redux/redux-store';
-import {getProfile, getStatus, updatePhoto, updateStatus} from '../../redux/reducers/profileReducer';
+import {getProfile, getStatus, saveProfile, updatePhoto, updateStatus} from '../../redux/reducers/profileReducer';
 import {Preloader} from '../common/Preloader/Preloader';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {withRedirect} from '../../hoc/withRedirect';
 import {compose} from 'redux';
 import {toggleIsFetching} from '../../redux/reducers/appReducer';
+import {ProfileDescriptionDataFormType} from './ProfileInfo/ProfileDescriptionForm/ProfileDescriptionForm';
 
 
 export type MapStateToPropsType = {
@@ -25,6 +26,7 @@ export type MapDispatchToPropsType = {
     getStatus: (userId: string) => void
     updateStatus: (status: string) => void
     updatePhoto: (photoFile: File) => void
+    saveProfile: (newProfileData: ProfileDescriptionDataFormType)=> Promise<void | string>
 }
 
 type PathParamsType = {
@@ -80,7 +82,7 @@ class ProfileClass extends React.Component<ProfileType> {
                 {this.props.isFetching ? <Preloader/> :
                     <Profile userProfile={this.props.userProfile} userStatus={this.props.userStatus}
                              updateStatus={this.props.updateStatus} isOwner={!this.props.match.params.userId}
-                                updatePhoto={this.props.updatePhoto}
+                                updatePhoto={this.props.updatePhoto} saveProfile={this.props.saveProfile}
                     />
                 }
             </div>
@@ -90,7 +92,8 @@ class ProfileClass extends React.Component<ProfileType> {
 }
 
 const ProfileContainer = compose<React.ComponentType>(withRedirect, withRouter,
-    connect(mapStateToProps, {getProfile, getStatus, updateStatus, toggleIsFetching , updatePhoto}))(ProfileClass)
+    connect(mapStateToProps, {getProfile, getStatus, updateStatus,
+        toggleIsFetching , updatePhoto, saveProfile}))(ProfileClass)
 
 
 export default ProfileContainer

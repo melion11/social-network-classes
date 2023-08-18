@@ -24,20 +24,6 @@ export const Header = (props: HeaderPropsType) => {
             <img className={s.header__logo}
                  src="https://www.svgrepo.com/show/327388/logo-react.svg"
                  alt={'logo'}/>
-            <div className={s.user}>
-                {
-                    props.userData.isAuth
-                        ?
-                        <>
-                            <img src={'https://avatars.mds.yandex.net/i?id=5eb28e6484563293901111cc8c8e11d1ac8309e7-7752980-images-thumbs&n=13'}
-                                 alt={'user.login'} className={s.avatar}/>
-                            <span className={s.login}>{props.userData.login}</span>
-                        </>
-                        :
-                        <NavLink className={s.login} to={'/login'}>Login</NavLink>
-                }
-            </div>
-
             {props.userData.isAuth ?
                 <NavLink to={'/login'} className={s.logout} onClick={logout}>Log Out</NavLink> :
                 <NavLink to={'/login'} className={s.logout}>Log In</NavLink>

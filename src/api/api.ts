@@ -1,4 +1,8 @@
 import axios from "axios";
+import {UserProfileType} from '../redux/redux-store';
+import {
+    ProfileDescriptionDataFormType
+} from '../components/Profile/ProfileInfo/ProfileDescriptionForm/ProfileDescriptionForm';
 
 
 
@@ -17,8 +21,9 @@ export const authAPI = {
     getAuth(){
         return instance.get('auth/me').then(response => response.data)
     },
-    getLogIn(email: string, password: string, rememberMe: boolean) {
-        return instance.post('/auth/login', {email, password, rememberMe}).then(response =>  response.data)
+    getLogIn(email: string, password: string, rememberMe: boolean, captcha: string) {
+        return instance.post('/auth/login', {email, password, rememberMe, captcha})
+            .then(response =>  response.data)
     },
     getLogOut() {
         return instance.delete('/auth/login').then(response => response.data)
@@ -58,10 +63,17 @@ export const profileAPI = {
         formData.append('image', photoFile)
         return instance.put('/profile/photo',
             formData,{ headers: {'Content-Type': 'multipart/form-data'}})
+    },
+    updateProfile(newProfileData: ProfileDescriptionDataFormType) {
+        return instance.put('/profile',{...newProfileData})
     }
 }
 
-
+export const securityAPI = {
+    getCaptcha() {
+        return instance.get('/security/get-captcha-url')
+    }
+}
 
 
 

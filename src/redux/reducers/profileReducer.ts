@@ -1,6 +1,11 @@
-import {AppThunk, PhotosType, ProfilePageType, UserProfileType} from '../redux-store';
+import {AppThunk, PhotosType, ProfilePageType, StateType, UserProfileType} from '../redux-store';
 import {profileAPI, usersAPI} from '../../api/api';
 import {toggleIsFetching} from './appReducer';
+import {
+    ProfileDescriptionDataFormType
+} from '../../components/Profile/ProfileInfo/ProfileDescriptionForm/ProfileDescriptionForm';
+import {stopSubmit} from 'redux-form';
+
 
 
 const initialState: ProfilePageType = {
@@ -10,16 +15,7 @@ const initialState: ProfilePageType = {
     ],
     userProfile: {
         aboutMe: '',
-        contacts: {
-            facebook: '',
-            website: '',
-            vk: '',
-            twitter: '',
-            instagram: '',
-            youtube: '',
-            github: '',
-            mainLink: '',
-        },
+        contacts: {},
         lookingForAJob: false,
         lookingForAJobDescription: '',
         fullName: '',
@@ -29,7 +25,7 @@ const initialState: ProfilePageType = {
             large: ''
         },
     },
-    status: ''
+    status: null
 }
 
 
@@ -52,7 +48,6 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Un
             return {...state, status: action.payload.status}
         }
         case '/profile/SET-USER-PHOTO': {
-            debugger
             return {...state, userProfile: {...state.userProfile,
                     photos: action.payload.image}}
         }
@@ -130,15 +125,25 @@ export const getStatus = (userId: number): AppThunk => async (dispatch) => {
 
 export const updateStatus = (status: string): AppThunk => async (dispatch) => {
     const data = await profileAPI.updateStatus(status)
-    if (data.data.resultCode === 0) {
-        dispatch(setUserStatus(status))
+    if (data.data.resultCode === 0) dispatch(setUserStatus(status))
     }
-}
 
 export const updatePhoto = (image: File):AppThunk => async  (dispatch) => {
     const response = await profileAPI.updatePhoto(image)
     if (response.data.resultCode === 0) {
         dispatch(setUserPhoto(response.data.data.photos))
 
+    }
+}
+
+export const saveProfile = (newProfileData: ProfileDescriptionDataFormType):AppThunk => async (dispatch,getState: () => StateType) => {
+    const userId = getState().profilePage.userProfile.userId
+    const response = await profileAPI.updateProfile({...newProfileData})
+    if (response.data.resultCode === 0) {
+        if (userId) dispatch(getProfile(userId))
+    } else {
+        const message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error'
+        dispatch(stopSubmit('edit-profile', {_error: message}))
+        return Promise.reject(response.data.messages[0])
     }
 }

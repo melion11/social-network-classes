@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import s from './ProfileInfo.module.css'
-import {UserProfileType} from "../../../redux/redux-store";
+import {UserProfileType} from '../../../redux/redux-store';
 import {ProfileHeader} from './ProfileHeader/ProfileHeader';
 import {ProfileDescription} from './ProfileDescription/ProfileDescription';
+import ProfileDescriptionForm, {ProfileDescriptionDataFormType} from './ProfileDescriptionForm/ProfileDescriptionForm';
+
 
 
 export type ProfileInfoPropsType = {
@@ -11,22 +13,40 @@ export type ProfileInfoPropsType = {
     updateStatus: (status: string) => void
     isOwner: boolean
     updatePhoto: (photoFile: File) => void
+    saveProfile: (newProfileData: ProfileDescriptionDataFormType)=> Promise<void | string>
 }
 
 
 
+
 export const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
-    const {userProfile, userStatus, updateStatus, isOwner, updatePhoto} = props
+    const {userProfile, userStatus, updateStatus, isOwner, updatePhoto, saveProfile} = props
+
+    const [editMode, setEditMode] = useState(false)
+
+    const goToEditModeHandler = () => {
+        setEditMode(true)
+    }
+
+    const handleSubmit = (newProfileData: ProfileDescriptionDataFormType) => {
+        saveProfile(newProfileData).then(()=> {
+            setEditMode(false)
+        })
+
+    }
 
     return (
         <div className={s.profile}>
             <div className={s.profile__overlay}></div>
             <div className={s.profile__content}>
-              <ProfileHeader userProfile={userProfile} userStatus={userStatus}
-                             updateStatus={updateStatus} isOwner={isOwner}
-                             updatePhoto={updatePhoto}
-              />
-               <ProfileDescription userProfile={userProfile} />
+                <ProfileHeader userProfile={userProfile} userStatus={userStatus}
+                               updateStatus={updateStatus} isOwner={isOwner}
+                               updatePhoto={updatePhoto}
+                />
+                {editMode ?
+                    <ProfileDescriptionForm initialValues={userProfile} userProfile={userProfile} onSubmit={handleSubmit}/> :
+                    <ProfileDescription goToEditMode={goToEditModeHandler} isOwner={isOwner} userProfile={userProfile}/>
+                }
             </div>
         </div>
     )

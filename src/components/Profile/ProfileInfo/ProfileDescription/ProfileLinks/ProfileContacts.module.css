@@ -1,10 +1,13 @@
 .profile__links {
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-start;
+
 }
 
 .profile__link {
     display: inline-block;
+    text-align: center;
     margin-right: 10px;
     margin-bottom: 10px;
     font-size: 16px;
@@ -15,10 +18,17 @@
     border-radius: 5px;
     transition: background-color 0.3s ease, color 0.3s ease;
     cursor: pointer;
+    flex: 1 0 calc(33.33% - 10px);
 }
 
-.profile__link:hover,
-.profile__link:focus {
-    background-color: #e6ceff;
-    color: #3f3f3f;
+@media (max-width: 768px) {
+    .profile__link {
+        flex: 1 0 calc(50% - 10px);
+    }
+}
+
+@media (max-width: 480px) {
+    .profile__link {
+        flex: 1 0 100%;
+    }
 }

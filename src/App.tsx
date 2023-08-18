@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {HashRouter, Redirect, Route, withRouter} from 'react-router-dom';
+import {HashRouter, Redirect, Route, Switch, withRouter} from 'react-router-dom';
 import {Navbar} from './components/NavBar/Navbar';
 import {HeaderContainer} from './components/Header/HeaderContainer';
 import {NewsContainer} from './components/News/NewsContainer';
@@ -12,6 +12,7 @@ import {initializeApp} from './redux/reducers/appReducer';
 import {StateType, store} from './redux/redux-store';
 import {Preloader} from './components/common/Preloader/Preloader';
 import {withSuspense} from './hoc/withSuspense';
+import Error404 from './components/common/Error404/Error404';
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
@@ -34,10 +35,9 @@ type AppContainerPropsType = MapDispatchToPropsType & MapStateToPropsType
 class App extends React.Component<AppContainerPropsType> {
 
     componentDidMount() {
-        console.log(this.props.initialized)
         this.props.initializeApp()
-    }
 
+    }
 
     render() {
         if (!this.props.initialized) {
@@ -48,6 +48,7 @@ class App extends React.Component<AppContainerPropsType> {
                 <HeaderContainer/>
                 {this.props.isAuth && <Navbar/>}
                 <div className={'appWrapperContent'}>
+                    <Switch>
                     <Route path={'/profile/:userId?'} render={withSuspense(ProfileContainer)}/>
                     <Route path={'/dialogs'} render={withSuspense(DialogsContainer)}/>
                     <Route path={'/news'} render={() => <NewsContainer/>}/>
@@ -56,6 +57,10 @@ class App extends React.Component<AppContainerPropsType> {
                     <Route path={'/settings'} render={() => <SettingsContainer/>}/>
                     <Route path={'/login'} render={withSuspense(LoginContainer)}/>
                     <Route exact path="/" render={() => <Redirect to="/profile"/>}/>
+
+                    <Route path={'*'} render={()=> <Error404/>}/>
+                    </Switch>
+
                 </div>
             </div>
         )

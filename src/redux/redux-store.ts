@@ -36,18 +36,11 @@ export type PostType = {
     likeCount: number
 }
 export type UserProfileContacts = {
-    facebook: string
-    website: string
-    vk: string
-    twitter: string
-    instagram: string
-    youtube: string
-    github: string
-    mainLink: string
+    [key: string]: string
 }
 export type UserProfilePhotosType = {
-    small: string
-    large: string
+    small: string | null
+    large: string | null
 }
 export type UserProfileType =  {
     aboutMe: string
@@ -75,7 +68,7 @@ export type DialogsPageType = {
 export type ProfilePageType = {
     posts: PostType[]
     userProfile: UserProfileType
-    status: string
+    status: string | null
 }
 
 export type AuthType = {
@@ -83,6 +76,7 @@ export type AuthType = {
     email: string | null
     login: string | null
     isAuth: boolean
+    captcha: string
 }
 
 export type AppPageType = {

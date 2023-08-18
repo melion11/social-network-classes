@@ -1,5 +1,5 @@
 import {AppThunk, AuthType} from '../redux-store';
-import {authAPI} from '../../api/api';
+import {authAPI, securityAPI} from '../../api/api';
 import {stopSubmit} from 'redux-form';
 import {toggleIsFetching} from './appReducer';
 
@@ -9,6 +9,7 @@ const initialState = {
     email: null,
     login: null,
     isAuth: false,
+    captcha: ''
 }
 
 
@@ -22,6 +23,9 @@ export const authReducer = (state: AuthType = initialState, action: UnionType): 
         case '/auth/RESET-USER-DATA': {
             return {...state, ...action.payload}
         }
+        case 'SET-CAPTCHA': {
+            return {...state, captcha: action.payload.captcha}
+        }
 
 
         default:
@@ -29,7 +33,7 @@ export const authReducer = (state: AuthType = initialState, action: UnionType): 
     }
 }
 
-export type UnionType = SetUserDataACType | ResetUserDataACType
+export type UnionType = SetUserDataACType | ResetUserDataACType | SetCaptchaUrlType
 
 export type SetUserDataACType = ReturnType<typeof setUserData>
 export const setUserData = (userData: AuthType) => {
@@ -51,13 +55,17 @@ export const getAuth = (): AppThunk => async (dispatch) => {
 
 }
 
-export const getLogIn = (email: string, password: string, rememberMe: boolean): AppThunk => async (dispatch) => {
+export const getLogIn = (email: string, password: string, rememberMe: boolean, captchaUrl: string): AppThunk => async (dispatch) => {
     dispatch(toggleIsFetching(true))
-    const data = await authAPI.getLogIn(email, password, rememberMe)
+    const data = await authAPI.getLogIn(email, password, rememberMe, captchaUrl)
     if (data.resultCode === 0) {
         dispatch(toggleIsFetching(false))
         dispatch(getAuth())
     } else {
+        if (data.resultCode === 10) {
+            dispatch(getCaptchaUrl())
+
+        }
         let message = data.messages.length > 0 ? data.messages[0] : 'Some error'
         dispatch(stopSubmit('loginForm', {_error: message}))
     }
@@ -84,6 +92,18 @@ export const getLogOut = (): AppThunk => async (dispatch) => {
     if (data.resultCode === 0) dispatch(resetUserData())
 }
 
+export type SetCaptchaUrlType = ReturnType<typeof setCaptchaUrl>
+export const setCaptchaUrl = (captcha: string) => {
+    return {
+        type: 'SET-CAPTCHA',
+        payload: {
+            captcha
+        }
+    } as const
+}
 
-
+export const getCaptchaUrl = (): AppThunk => async (dispatch) => {
+    const response = await securityAPI.getCaptcha()
+    dispatch(setCaptchaUrl(response.data.url))
+}
 
