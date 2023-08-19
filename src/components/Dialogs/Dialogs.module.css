@@ -1,58 +1,66 @@
+/* Стили для контейнера с диалогами и чатом */
 .dialogsWrapperContent {
     display: flex;
-    gap: 100px;
-
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100vh; /* Занимаем 100% высоты экрана */
 }
 
-.messagesList {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 16px;
-    line-height: 10px;
-    color: #FFFFFF;
-}
-
+/* Стили для обертки диалогов */
 .dialogWrapper {
-    width: 250px;
-    margin-right: 20px;
-    border-radius: 5px;
-    overflow: hidden;
-    box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.25);
-    display: flex;
-    flex-direction: column;
-    height: 100%
+    flex: 1;
+    padding: 20px;
+    background-color: #4d4c4c;
 }
 
+/* Стили для списка диалогов */
 .dialogList {
     list-style: none;
-    margin: 0;
     padding: 0;
-    background-color: #e6ceff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100%; /* занимает всю доступную высоту контейнера */
-    flex: 1; /* занимает все оставшееся пространство */
 }
 
 .dialogList li {
-    padding: 10px;
-    font-family: 'VK';
-    cursor: pointer;
-    border-radius: 5px;
-    color: #261e1e;
-    flex-grow: 1;
     display: flex;
-    justify-content: center;
-    text-align: center;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    color: #fdfdfd;
+    cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-.dialogList li:hover {
-    background-color: #8cc2a6;
-    width: 100%;
+.dialogList li:last-child {
+    margin-bottom: 0; /* Убираем отступ для последнего элемента списка */
 }
+
+.dialogList li:hover {
+    background-image: linear-gradient(180deg, #e1c6f1, #b689e7); /* Градиентный фон */
+
+}
+
+
+/* Стили для контейнера чата */
+.messagesWrapper {
+    flex: 2;
+    padding: 20px;
+    background-color: #3d3d3d;
+    max-height: 400px;
+    border-radius: 15px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3); /* Добавляем box shadow */
+    overflow: auto; /* Добавляем прокрутку для случая, когда контент не помещается в область чата */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Стили для области сообщений */
+.messagesList {
+    list-style: none;
+    padding: 0;
+}
+
+
 
 
 

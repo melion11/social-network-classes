@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {PostType, StateType} from '../../../redux/redux-store';
 import {MyPosts} from './MyPosts';
-import {addPost} from '../../../redux/reducers/profileReducer';
+import {addPost, PostType} from '../../../redux/reducers/profileReducer';
+import {StateType} from '../../../redux/redux-store';
 
 
 

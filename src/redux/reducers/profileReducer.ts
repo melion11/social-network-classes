@@ -1,12 +1,42 @@
-import {AppThunk, PhotosType, ProfilePageType, StateType, UserProfileType} from '../redux-store';
+import {AppThunk, StateType} from '../redux-store';
 import {profileAPI, usersAPI} from '../../api/api';
 import {toggleIsFetching} from './appReducer';
+import {stopSubmit} from 'redux-form';
+import {PhotosType} from './userReducer';
 import {
     ProfileDescriptionDataFormType
 } from '../../components/Profile/ProfileInfo/ProfileDescriptionForm/ProfileDescriptionForm';
-import {stopSubmit} from 'redux-form';
+
+export type UserProfileContacts = {
+    [key: string]: string
+}
+export type UserProfilePhotosType = {
+    small: string | null
+    large: string | null
+}
+export type UserProfileType =  {
+    aboutMe: string
+    contacts: UserProfileContacts
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    userId: number
+    photos: UserProfilePhotosType
+}
 
 
+export type PostType = {
+    id: number
+    message: string
+    likeCount: number
+}
+
+
+export type ProfilePageType = {
+    posts: PostType[]
+    userProfile: UserProfileType
+    status: string | null
+}
 
 const initialState: ProfilePageType = {
     posts: [

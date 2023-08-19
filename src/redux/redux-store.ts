@@ -1,88 +1,13 @@
 import {AnyAction, applyMiddleware, combineReducers, compose, createStore} from 'redux';
-import {profileReducer} from "./reducers/profileReducer";
-import {dialogsReducer} from "./reducers/dialogsReducer";
-import {userReducer} from "./reducers/userReducer";
-import {authReducer} from "./reducers/authReducer";
+import {ProfilePageType, profileReducer} from './reducers/profileReducer';
+import {DialogsPageType, dialogsReducer} from './reducers/dialogsReducer';
+import {userReducer, UsersPageType} from './reducers/userReducer';
+import {authReducer, AuthType} from './reducers/authReducer';
 import { reducer as formReducer } from 'redux-form'
 import thunk, {ThunkAction} from 'redux-thunk';
-import {appReducer} from './reducers/appReducer';
+import {AppPageType, appReducer} from './reducers/appReducer';
 
 
-export type PhotosType = {
-    small: string,
-    large: string
-}
-
-export type UserType = {
-    name: string
-    id: number
-    uniqueUrlName: string
-    photos: PhotosType
-    status: string
-    followed: boolean
-
-}
-export type MessageType = {
-    id: number
-    message: string
-}
-export type DialogType = {
-    id: number
-    name: string
-}
-export type PostType = {
-    id: number
-    message: string
-    likeCount: number
-}
-export type UserProfileContacts = {
-    [key: string]: string
-}
-export type UserProfilePhotosType = {
-    small: string | null
-    large: string | null
-}
-export type UserProfileType =  {
-    aboutMe: string
-    contacts: UserProfileContacts
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    userId: number
-    photos: UserProfilePhotosType
-}
-
-export type UsersPageType = {
-    users: UserType[]
-    pageSize: number
-    totalUserCount: number
-    currentPage: number
-    followingInProgress: number[]
-}
-
-export type DialogsPageType = {
-    dialogs: DialogType[]
-    messages: MessageType[]
-}
-
-export type ProfilePageType = {
-    posts: PostType[]
-    userProfile: UserProfileType
-    status: string | null
-}
-
-export type AuthType = {
-    id: number | null
-    email: string | null
-    login: string | null
-    isAuth: boolean
-    captcha: string
-}
-
-export type AppPageType = {
-    initialized: boolean
-    isFetching: boolean
-}
 
 export type StateType = {
     profilePage: ProfilePageType

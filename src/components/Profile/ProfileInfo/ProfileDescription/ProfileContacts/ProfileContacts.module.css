@@ -1,0 +1,42 @@
+.profile__links {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+}
+
+.profile__link {
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: #dea0de;
+    color: #333;
+    text-decoration: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: calc(100% - 5px); /* 5px - отступ между контактами */
+    margin-bottom: 10px; /* Отступ между контактами */
+}
+
+.profile__link:last-child {
+    margin-right: 0;
+}
+
+.profile__link:hover {
+    background-color: #c75ec7;
+}
+
+
+
+@media (max-width: 768px) {
+    .profile__link {
+        flex: 1 0 calc(50% - 10px);
+    }
+}
+
+@media (max-width: 480px) {
+    .profile__link {
+        flex: 1 0 100%;
+    }
+}
+

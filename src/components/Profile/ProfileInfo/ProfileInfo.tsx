@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import s from './ProfileInfo.module.css'
-import {UserProfileType} from '../../../redux/redux-store';
 import {ProfileHeader} from './ProfileHeader/ProfileHeader';
 import {ProfileDescription} from './ProfileDescription/ProfileDescription';
 import ProfileDescriptionForm, {ProfileDescriptionDataFormType} from './ProfileDescriptionForm/ProfileDescriptionForm';
+import {UserProfileType} from '../../../redux/reducers/profileReducer';
 
 
 

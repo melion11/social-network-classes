@@ -1,14 +1,21 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Profile} from './Profile';
-import {StateType, UserProfileType} from '../../redux/redux-store';
-import {getProfile, getStatus, saveProfile, updatePhoto, updateStatus} from '../../redux/reducers/profileReducer';
+import {
+    getProfile,
+    getStatus,
+    saveProfile,
+    updatePhoto,
+    updateStatus,
+    UserProfileType
+} from '../../redux/reducers/profileReducer';
 import {Preloader} from '../common/Preloader/Preloader';
 import {RouteComponentProps, withRouter} from 'react-router-dom';
 import {withRedirect} from '../../hoc/withRedirect';
 import {compose} from 'redux';
 import {toggleIsFetching} from '../../redux/reducers/appReducer';
 import {ProfileDescriptionDataFormType} from './ProfileInfo/ProfileDescriptionForm/ProfileDescriptionForm';
+import {StateType} from '../../redux/redux-store';
 
 
 export type MapStateToPropsType = {

@@ -1,11 +1,32 @@
-import {AppThunk, UsersPageType, UserType} from '../redux-store';
+import {AppThunk} from '../redux-store';
 import {usersAPI} from '../../api/api';
 import {toggleIsFetching, ToggleIsFetchingACType} from './appReducer';
 
+export type PhotosType = {
+    small: string,
+    large: string
+}
+
+export type UserType = {
+    name: string
+    id: number
+    uniqueUrlName: string
+    photos: PhotosType
+    status: string
+    followed: boolean
+}
+
+export type UsersPageType = {
+    users: UserType[]
+    pageSize: number
+    totalUserCount: number
+    currentPage: number
+    followingInProgress: number[]
+}
 
 const initialState: UsersPageType = {
     users: [],
-    pageSize: 5,
+    pageSize: 6,
     totalUserCount: 0,
     currentPage: 2,
     followingInProgress: []

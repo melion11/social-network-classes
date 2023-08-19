@@ -1,5 +1,4 @@
 import axios from "axios";
-import {UserProfileType} from '../redux/redux-store';
 import {
     ProfileDescriptionDataFormType
 } from '../components/Profile/ProfileInfo/ProfileDescriptionForm/ProfileDescriptionForm';

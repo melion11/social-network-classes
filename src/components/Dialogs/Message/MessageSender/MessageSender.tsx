@@ -17,16 +17,14 @@ const MessageSender: FC<InjectedFormProps<MessageInputType>> = (props) => {
 
 
     return (
-        <form className={s.sendForm} onSubmit={handleSubmit}>
-           <Field  className={s.textarea} placeholder={'Type your new message'}
-                   component={Textarea}  name={'newMessageBody'}
-                    validate={[required, maxLength100]}
-           />
-           <button className={s.button}>Send</button>
+        <form onSubmit={handleSubmit} className={s.sendForm}>
+            <input type="text" className={s.messageInput} placeholder="Type your message..."/>
+            <button type="submit" className={s.sendButton}>
+                <i className="fa fa-paper-plane"></i>
+            </button>
         </form>
-    );
-};
-
+    )
+}
 export default reduxForm<MessageInputType>({
     form: 'dialogMessageForm'
 })(MessageSender)

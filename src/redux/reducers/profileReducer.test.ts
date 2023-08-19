@@ -1,5 +1,5 @@
-import {addPost, profileReducer} from './profileReducer';
-import {ProfilePageType} from '../redux-store';
+import {addPost, ProfilePageType, profileReducer} from './profileReducer';
+
 
 describe('Profile reducer tests', () => {
     let state: ProfilePageType;

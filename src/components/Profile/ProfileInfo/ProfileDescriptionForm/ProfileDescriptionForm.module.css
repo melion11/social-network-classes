@@ -1,34 +1,87 @@
 .profile__description {
+    /* Добавьте стили для контейнера формы, если необходимо */
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    padding: 40px;
-    z-index: 1;
+    padding: 15px;
+    flex-direction: column;
+    justify-content: flex-start; /* Выравнивание элементов к верхнему краю контейнера */
+    row-gap: 20px; /* Более сокращенный вариант grid-row-gap */
 }
 
 .profile__item {
-    width: calc(50% - 10px);
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-    align-items: center;
-    transition: all 0.3s ease;
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* Лейблы и поля будут занимать одинаковую ширину */
+    column-gap: 10px; /* Более сокращенный вариант grid-column-gap */
 }
 
 .profile__label {
-    font-size: 18px;
     font-weight: bold;
-    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
 }
 
-.profile__text {
-    font-size: 16px;
+/* Стилизация элементов формы */
+.profile__item input,
+.profile__item textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
-.profile__text p {
-    font-size: 16px;
-    line-height: 1.5;
-    color: #d2d2d2;
-    margin: 0;
+/* Стилизация кнопки */
+.profile__description button {
+    padding: 10px 20px;
+    background-color: #dea0de;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    align-self: flex-start; /* Выравнивание кнопки к верхнему краю контейнера */
 }
 
+.profile__description button:hover {
+    background-color: #c75ec7;
+}
+
+.button__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+}
+
+/* Дополнительно: стилизация для метки чекбокса */
+.profile__item label {
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+}
+
+.profile__contacts {
+    margin-top: 10px; /* Add margin between contact fields */
+}
+
+.profile__contact:not(:first-child) {
+    margin-top: 5px; /* Add margin to all contact fields except the first one */
+}
+
+
+/* Адаптивные стили */
+@media screen and (max-width: 768px) {
+    .profile__item {
+        grid-template-columns: 1fr; /* Отображать лейблы и поля столбцами на узких экранах */
+    }
+
+    /* Для контактов в двух столбцах */
+    .profile__contacts {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between; /* Выравнивание контактных полей друг относительно друга */
+    }
+
+    /* Установим ширину для каждого контактного поля */
+    .profile__contact {
+        width: calc(50% - 5px); /* 5px - отступ между контактами */
+        margin-bottom: 10px; /* Отступ между контактами */
+    }
+}

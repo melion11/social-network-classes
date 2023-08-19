@@ -1,7 +1,16 @@
-import {AppThunk, AuthType} from '../redux-store';
+import {AppThunk} from '../redux-store';
 import {authAPI, securityAPI} from '../../api/api';
 import {stopSubmit} from 'redux-form';
 import {toggleIsFetching} from './appReducer';
+
+
+export type AuthType = {
+    id: number | null
+    email: string | null
+    login: string | null
+    isAuth: boolean
+    captcha: string
+}
 
 
 const initialState = {
@@ -62,10 +71,7 @@ export const getLogIn = (email: string, password: string, rememberMe: boolean, c
         dispatch(toggleIsFetching(false))
         dispatch(getAuth())
     } else {
-        if (data.resultCode === 10) {
-            dispatch(getCaptchaUrl())
-
-        }
+        if (data.resultCode === 10) dispatch(getCaptchaUrl())
         let message = data.messages.length > 0 ? data.messages[0] : 'Some error'
         dispatch(stopSubmit('loginForm', {_error: message}))
     }

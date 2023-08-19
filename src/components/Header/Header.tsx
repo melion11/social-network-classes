@@ -1,7 +1,8 @@
 import React from 'react';
 import s from './Header.module.css'
 import {NavLink, Redirect} from 'react-router-dom';
-import {AuthType} from "../../redux/redux-store";
+import {AuthType} from '../../redux/reducers/authReducer';
+
 
 
 export type HeaderPropsType = {

@@ -4,6 +4,7 @@ import {NavLink} from "react-router-dom";
 
 export const Navbar = () => {
     return (
+        <div className={s.container}>
         <nav className={s.nav}>
             <ul className={s.nav__list}>
 
@@ -51,5 +52,6 @@ export const Navbar = () => {
 
             </ul>
         </nav>
+        </div>
     )
 }

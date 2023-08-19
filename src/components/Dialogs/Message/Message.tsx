@@ -10,13 +10,13 @@ export const Message = (props: MessagePropsType) => {
 
     return (
 
-        <div key={props.id} className={s.text}>
-            <div className={s.name}>
+        <div key={props.id} className={s.message}>
+            <div className={s.sender}>
                 <p>Me</p>
             </div>
-            <pre className={s.messageText}>
-                 <p>{props.message}</p>
-            </pre>
+            <div className={s.messageText}>
+                <p>{props.message}</p>
+            </div>
         </div>
 
     );

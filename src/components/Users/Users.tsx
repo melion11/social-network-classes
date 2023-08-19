@@ -1,8 +1,8 @@
 import React from 'react';
-import {UserType} from "../../redux/redux-store";
 import {Paginator} from '../common/Paginator/Paginator';
 import {User} from './User/User';
-
+import {UserType} from '../../redux/reducers/userReducer';
+import s from './Users.module.css';
 
 export type  UsersPropsType = {
     users: UserType[]
@@ -24,6 +24,7 @@ export const Users: React.FC<UsersPropsType> = (props) => {
         <div>
             <Paginator pageSize={pageSize} totalUserCount={totalUserCount} currentPage={currentPage} handlePageClick={handlePageClick}/>
 
+            <div className={s.usersContainer}>
             {users.map(u => {
                 const getFollowUserHandler = (userId: number) => {
                     follow(userId)
@@ -39,6 +40,7 @@ export const Users: React.FC<UsersPropsType> = (props) => {
                   />
                 );
             })}
+            </div>
         </div>
     );
 }

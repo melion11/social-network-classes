@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './ProfileDescription.module.css'
-import {UserProfileType} from '../../../../redux/redux-store';
-import {ProfileContacts} from './ProfileLinks/ProfileContacts';
+import {ProfileContacts} from './ProfileContacts/ProfileContacts';
+import {UserProfileType} from '../../../../redux/reducers/profileReducer';
 
 
 export type ProfileInfoPropsType = {
@@ -16,9 +16,9 @@ export const ProfileDescription: React.FC<ProfileInfoPropsType> = (props) => {
 
     return (
         <div className={s.profile__description}>
-
+            {isOwner && <div><button className={s.profile__edit} onClick={goToEditMode}>Edit</button></div>}
             <div className={s.profile__item}>
-                {isOwner && <div><button onClick={goToEditMode}>Edit</button></div>}
+
                 <h2 className={s.profile__name}>{userProfile.fullName}</h2>
                 <span className={s.profile__label}>About me:</span>
                 <span className={s.profile__text}>{userProfile.aboutMe}</span>
@@ -33,13 +33,11 @@ export const ProfileDescription: React.FC<ProfileInfoPropsType> = (props) => {
                     <p>{userProfile.lookingForAJobDescription}</p>
                 </div>
             </div>
-            <div className={s.profile__item}>
-                <span className={s.profile__label}>Contacts: {
-                    Object.keys(userProfile.contacts).map((key: string) => {
+            <div className={s.profile__contacts}>
+                <div className={s.profile__label}>Contacts:</div>
+                {Object.keys(userProfile.contacts).map((key: string) => {
                         return <ProfileContacts key={key} title={key} value={userProfile.contacts[key]}/>
-                    })
-                }</span>
-
+                    })}
             </div>
         </div>
 

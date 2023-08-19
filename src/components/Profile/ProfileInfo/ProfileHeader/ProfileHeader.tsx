@@ -1,8 +1,8 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import s from './ProfileHeader.module.css'
 import {ProfileStatus} from '../../ProfileStatus/ProfileStatus';
-import {UserProfileType} from '../../../../redux/redux-store';
-import {updatePhoto} from '../../../../redux/reducers/profileReducer';
+import {UserProfileType} from '../../../../redux/reducers/profileReducer';
+
 
 
 export type ProfileHeaderPropsType = {
@@ -26,12 +26,17 @@ export const ProfileHeader: React.FC<ProfileHeaderPropsType> = (props) => {
     return (
         <div className={s.profile__header}>
             <div className={s.imageContainer}>
-                <img className={s.profile__avatar} src={userProfile.photos.small ?
-                    userProfile.photos.small :
-                    'https://placehold.co/50x50?text=No+Avatar'} alt={'avatar'}/>
-                {isOwner && <input onChange={onChangePhotoHandler} type={'file'}/>}
+                <img className={s.profile__avatar}
+                    src={userProfile.photos.small || 'https://placehold.co/50x50?text=No+Avatar'}
+                    alt="avatar"
+                />
+                {isOwner && <input onChange={onChangePhotoHandler} type="file" />}
             </div>
-            <ProfileStatus userStatus={userStatus} updateStatus={updateStatus} isOwner={isOwner}/>
+            <ProfileStatus
+                userStatus={userStatus}
+                updateStatus={updateStatus}
+                isOwner={isOwner}
+            />
         </div>
 
     )

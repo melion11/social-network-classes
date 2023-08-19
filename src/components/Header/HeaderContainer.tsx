@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {AuthType, StateType} from "../../redux/redux-store";
 import {Header} from "./Header";
-import {getAuth, getLogOut} from '../../redux/reducers/authReducer';
+import {AuthType, getLogOut} from '../../redux/reducers/authReducer';
+import {StateType} from '../../redux/redux-store';
 
 
 

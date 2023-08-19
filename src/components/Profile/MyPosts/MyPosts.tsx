@@ -1,8 +1,8 @@
 import React, {FC} from 'react';
 import s from './MyPosts.module.css'
 import {Post} from "./Post/Post";
-import {PostType} from "../../../redux/redux-store";
-import AddPostForm, {InputDataType} from './AddMessageForm/AddPostForm';
+import AddPostForm, {InputDataType} from './AddPostForm/AddPostForm';
+import {PostType} from '../../../redux/reducers/profileReducer';
 
 
 

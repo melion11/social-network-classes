@@ -1,6 +1,6 @@
 .header {
     grid-area: h;
-    background-image: linear-gradient(to bottom, #dea0de, #e5bde5);
+    background: linear-gradient(135deg, #e1c6f1, #a38ce2);
     box-shadow: 0 10px 20px rgba(0,0,0,0.3);
     border-radius: 5px;
     display: flex;
@@ -9,38 +9,23 @@
     padding: 0 20px;
 }
 
+/* Стили для логотипа */
 .header__logo {
-    width: 120px;
-    height: 60px;
-
-}
-
-.user {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.avatar {
     width: 40px;
     height: 40px;
     margin-right: 10px;
-    border-radius: 50%;
 }
 
-.login {
-    font-size: 18px;
-    font-weight: bold;
-}
-
+/* Стили для ссылки "Log Out" или "Log In" */
 .logout {
-    background-color: transparent;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-    transition: color 0.2s ease-in-out;
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #dea0de;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
 }
 
 .logout:hover {
-    color: #bc9ae3;
+    background: linear-gradient(135deg, #e1c6f1, #a38ce2);
 }

@@ -2,11 +2,8 @@ import React from 'react';
 import s from './Dialogs.module.css'
 import {Message} from "./Message/Message";
 import {DialogItem} from "./Dialog/DialogItem";
-import {DialogType, MessageType} from "../../redux/redux-store";
 import MessageSender, {MessageInputType} from './Message/MessageSender/MessageSender';
-import {InputDataType} from '../Profile/MyPosts/AddMessageForm/AddPostForm';
-
-
+import {DialogType, MessageType} from '../../redux/reducers/dialogsReducer';
 
 export type DialogsPropsType = {
     dialogs: DialogType[]
@@ -37,10 +34,8 @@ export const Dialogs = (props: DialogsPropsType) => {
                 <ul className={s.messagesList}>
                     {messagesElements}
                 </ul>
-
-                <MessageSender onSubmit={addNewMessageHandler}/>
-
-            </div>
+                   <MessageSender onSubmit={addNewMessageHandler}/>
+          </div>
         </div>
               );
 };

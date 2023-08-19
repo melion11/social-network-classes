@@ -1,24 +1,21 @@
 .profile__description {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    flex-direction: column;
     padding: 40px;
+    gap: 20px; /* Отступ между элементами */
     z-index: 1;
 }
 
 .profile__item {
-    width: calc(50% - 10px);
+    width: 100%;
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
-    align-items: center;
+    align-items: flex-start; /* Выравнивание элементов по левому краю */
     transition: all 0.3s ease;
 }
-
 .profile__label {
     font-size: 18px;
     font-weight: bold;
-    margin-bottom: 5px;
 }
 
 .profile__text {
@@ -32,3 +29,32 @@
     margin: 0;
 }
 
+.profile__edit {
+    background-color: #dea0de;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.profile__edit:hover {
+    background-color: #c75ec7;
+}
+
+.profile__contacts {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center; /* Выравнивание элементов по левому краю */
+    transition: all 0.3s ease;
+}
+
+/* Адаптивные стили */
+@media (max-width: 768px) {
+    .profile__item {
+        max-width: 100%; /* На мобильных устройствах элементы будут занимать всю ширину доступного контейнера */
+    }
+}

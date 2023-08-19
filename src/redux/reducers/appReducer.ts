@@ -1,5 +1,10 @@
-import {AppPageType, AppThunk} from '../redux-store';
+import {AppThunk} from '../redux-store';
 import {getAuth} from './authReducer';
+
+export type AppPageType = {
+    initialized: boolean
+    isFetching: boolean
+}
 
 
 const initialState = {

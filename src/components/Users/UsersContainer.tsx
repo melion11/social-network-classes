@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {StateType, UserType} from '../../redux/redux-store';
-import {follow, getRequestUsers, setSelectedPage, unfollow} from '../../redux/reducers/userReducer';
+import {follow, getRequestUsers, unfollow, UserType} from '../../redux/reducers/userReducer';
 import {Users} from './Users';
 import {Preloader} from '../common/Preloader/Preloader';
 import {withRedirect} from '../../hoc/withRedirect';
@@ -13,6 +12,7 @@ import {
     getTotalUserCount,
     getUsers
 } from '../../redux/selectors/userSelectors';
+import {StateType} from '../../redux/redux-store';
 
 export class UsersClass extends React.Component<MapStateToPropsType & MapDispatchToPropsType, any> {
 
