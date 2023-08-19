@@ -27,7 +27,7 @@ export const ProfileHeader: React.FC<ProfileHeaderPropsType> = (props) => {
         <div className={s.profile__header}>
             <div className={s.imageContainer}>
                 <img className={s.profile__avatar}
-                    src={userProfile.photos.small || 'https://placehold.co/50x50?text=No+Avatar'}
+                    src={userProfile.photos.large || 'https://placehold.co/50x50?text=No+Avatar'}
                     alt="avatar"
                 />
                 {isOwner && <input onChange={onChangePhotoHandler} type="file" />}
