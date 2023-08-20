@@ -38,7 +38,7 @@ export const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
     return (
         <div className={s.profile}>
             <div className={s.profile__overlay}></div>
-            <div className={s.profile__content}>
+            <div className={s.profile__content }>
                 <ProfileHeader userProfile={userProfile} userStatus={userStatus}
                                updateStatus={updateStatus} isOwner={isOwner}
                                updatePhoto={updatePhoto}
