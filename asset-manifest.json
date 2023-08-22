@@ -1,0 +1,36 @@
+{
+  "files": {
+    "main.css": "/melion11/social-network-classes/static/css/main.427addd0.css",
+    "main.js": "/melion11/social-network-classes/static/js/main.122f6d13.js",
+    "static/css/640.21185ebb.chunk.css": "/melion11/social-network-classes/static/css/640.21185ebb.chunk.css",
+    "static/js/640.aee9088d.chunk.js": "/melion11/social-network-classes/static/js/640.aee9088d.chunk.js",
+    "static/css/428.be1d51a6.chunk.css": "/melion11/social-network-classes/static/css/428.be1d51a6.chunk.css",
+    "static/js/428.2ab4efae.chunk.js": "/melion11/social-network-classes/static/js/428.2ab4efae.chunk.js",
+    "static/css/249.01f98106.chunk.css": "/melion11/social-network-classes/static/css/249.01f98106.chunk.css",
+    "static/js/249.04e96529.chunk.js": "/melion11/social-network-classes/static/js/249.04e96529.chunk.js",
+    "static/css/676.b2d65393.chunk.css": "/melion11/social-network-classes/static/css/676.b2d65393.chunk.css",
+    "static/js/676.30517c17.chunk.js": "/melion11/social-network-classes/static/js/676.30517c17.chunk.js",
+    "static/js/704.e917e795.chunk.js": "/melion11/social-network-classes/static/js/704.e917e795.chunk.js",
+    "static/js/753.8840df13.chunk.js": "/melion11/social-network-classes/static/js/753.8840df13.chunk.js",
+    "static/media/user.png": "/melion11/social-network-classes/static/media/user.87c136ea13acfeadf65b.png",
+    "static/media/VKSansDisplay-Regular.ttf": "/melion11/social-network-classes/static/media/VKSansDisplay-Regular.455b22550826e794e1a1.ttf",
+    "static/media/404.svg": "/melion11/social-network-classes/static/media/404.9ec31c0ba8d95b0480272e46af98c955.svg",
+    "index.html": "/melion11/social-network-classes/index.html",
+    "main.427addd0.css.map": "/melion11/social-network-classes/static/css/main.427addd0.css.map",
+    "main.122f6d13.js.map": "/melion11/social-network-classes/static/js/main.122f6d13.js.map",
+    "640.21185ebb.chunk.css.map": "/melion11/social-network-classes/static/css/640.21185ebb.chunk.css.map",
+    "640.aee9088d.chunk.js.map": "/melion11/social-network-classes/static/js/640.aee9088d.chunk.js.map",
+    "428.be1d51a6.chunk.css.map": "/melion11/social-network-classes/static/css/428.be1d51a6.chunk.css.map",
+    "428.2ab4efae.chunk.js.map": "/melion11/social-network-classes/static/js/428.2ab4efae.chunk.js.map",
+    "249.01f98106.chunk.css.map": "/melion11/social-network-classes/static/css/249.01f98106.chunk.css.map",
+    "249.04e96529.chunk.js.map": "/melion11/social-network-classes/static/js/249.04e96529.chunk.js.map",
+    "676.b2d65393.chunk.css.map": "/melion11/social-network-classes/static/css/676.b2d65393.chunk.css.map",
+    "676.30517c17.chunk.js.map": "/melion11/social-network-classes/static/js/676.30517c17.chunk.js.map",
+    "704.e917e795.chunk.js.map": "/melion11/social-network-classes/static/js/704.e917e795.chunk.js.map",
+    "753.8840df13.chunk.js.map": "/melion11/social-network-classes/static/js/753.8840df13.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.427addd0.css",
+    "static/js/main.122f6d13.js"
+  ]
+}
